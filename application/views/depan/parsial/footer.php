@@ -1,92 +1,69 @@
+<!-- ======= Footer ======= -->
+<footer id="footer">
 
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="foot-logo">
-                    <a href="<?php echo site_url();?>">
-                        <img src="<?php echo base_url().'assets/images/logo-new.png'?>" class="img-fluid" alt="footer_logo">
-                    </a>
-                    <p><?php echo date('Y');?> © copyright by <a href="#" target="_blank">SIMPUL</a>. <br>All rights reserved.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="sitemap">
-                        <h3>Menu Utama</h3>
-                        <ul>
-                        <li><a href="<?php echo site_url('datausaha');?>">Datahseet</a></li>
-                          <li><a href="<?php echo site_url('maps');?>">Maps </a></li>
-                         
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="sitemap">
-                      <h3>SIMPUL</h3>
-                      <ul>
-                          <li><a href="<?php echo site_url('datausaha');?>">Datahseet</a></li>
-                          <li><a href="<?php echo site_url('maps');?>">Maps </a></li>
-                          <li><a href="<?php echo site_url('indeksusaha');?>">Indeks Usaha</a></li>
-                         
-                      </ul>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="address">
-                        <h3>Hubungi Kami</h3>
-                        <p><span>Alamat: </span> Jl. Langko No.61, Dasan Agung Baru, Kec. Selaparang, Kota Mataram, Nusa Tenggara Bar. 83125</p>
-                        <p>Email : info@simpul.id
-                            <br> Phone : (0370) 633736</p>
-                            <ul class="footer-social-icons">
-                                <li><a href="#"><i class="fa fa-facebook fa-fb" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin fa-in" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter fa-tw" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- jQuery, Bootstrap JS. -->
-        <!-- <script src="<?php echo base_url().'assets/js/jquery-3.3.1.min.js'?>"></script>
-        <script src="<?php echo base_url().'theme/js/jquery.min.js'?>"></script> -->
-        <script src="<?= base_url('theme/alfa/')?>jquery/jquery-2.2.4.min.js"></script>
+<div class="footer-top">
+  <div class="container">
+    <div class="row">
 
-        <script src="<?php echo base_url().'theme/js/tether.min.js'?>"></script>
-        <script src="<?php echo base_url().'theme/js/bootstrap.min.js'?>"></script>
-        <script src="<?php echo base_url().'theme/js/owl.carousel.min.js'?>"></script>
-        <!-- <script src="<?php echo base_url().'theme/js/validate.js'?>"></script> -->
-        <script src="<?php echo base_url().'theme/js/tweetie.min.js'?>"></script>
-        <!-- <script src="<?php echo base_url().'theme/js/subscribe.js'?>"></script> -->
-        <!-- <script src="<?php echo base_url().'theme/js/contact.js'?>"></script> -->
-        <!-- Script JS -->
-        <!-- <script src="<?php echo base_url().'theme/js/jquery.dataTables.min.js'?>"></script>
-        <script src="<?php echo base_url().'theme/js/dataTables.bootstrap4.min.js'?>"></script> -->
+      <div class="col-lg-3 col-md-4 col-sm-3 col-6 footer-contact">
+        <h3>SIMPUL</h3>
+        <p>
+        Jl. Langko No.61,<br> 
+        Mataram, NTB, 83125, <br>
+        Dasan Agung Baru,  Kec. Selaparang, <br>
+        Mataram City, West Nusa Tenggara 
+        <br><br>
+          <strong>Telpn:</strong> 0812-3782-130<br>
+          <strong>Email:</strong> support@simdataku.com<br>
+        </p>
+      </div>
 
-        <!--  Google Maps Plugin    -->
-        <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
-        <!-- Chart JS -->
-        <!-- <script src="<?php echo base_url().'assets1/js/plugins/chartjs.min.js'?>"></script> -->
-        <!--  Notifications Plugin    -->
-        <!-- <script src="<?php echo base_url().'assets1/js/plugins/bootstrap-notify.js'?>"></script> -->
-        <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-        
-        <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-        <!-- <script src="<?php echo base_url().'assets1/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript'?>"></script> -->
-        <!-- <script src="<?php echo base_url().'assets1/demo/demo.js'?>"></script> -->
-        
-        <!-- Popper js -->
-        <script src="<?= base_url('theme/alfa/')?>bootstrap/popper.min.js"></script>
-        <!-- Bootstrap js -->
-        <!-- <script src="<?= base_url('theme/alfa/')?>bootstrap/bootstrap.min.js"></script> -->
-        <!-- All Plugins js -->
-        <!-- <script src="<?= base_url('theme/alfa/')?>plugins/plugins.js"></script> -->
-        
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
-        <script src="<?= base_url('assets/vendor/jquery-counterup/jquery.counterup.min.js') ?>"></script>
-        
-        <script src="<?php echo base_url().'theme/js/script-min.js'?>"></script>
-        <!-- Active js -->
-        <!-- <script src="<?= base_url('theme/alfa/')?>active.js"></script> -->
-         
-    </body>
+      <div class="col-lg-3 col-md-6 col-sm-3 col-6 footer-links">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><i class="bx bx-chevron-right"></i> <a href="<?php echo site_url(''); ?>">Beranda</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="<?php echo site_url('umkm'); ?>">UMKM</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="<?php echo site_url('koperasi'); ?>">Koperasi</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="<?php echo site_url('produk'); ?>">Produk</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="<?php echo site_url('referensi'); ?>">Referensi</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-sm-3 col-6 footer-links">
+        <h4>Tautan Resmi</h4>
+        <ul>
+          <li><i class="bx bx-chevron-right"></i> <a href="https://disdag.ntbprov.go.id/aduan-publik/">Konsultasi UMKM</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="https://disdag.ntbprov.go.id/ppid/">PPIDDinas Perdagangan Provinsi NTB</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="https://disdag.ntbprov.go.id/datacenter/">Data Center</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-sm-3 col-6 footer-links">
+        <h4>Sosial media kami</h4>
+        <p>Sosial media resmi Dinas Perdagangan Provinsi Nusa Tenggara Barat</p>
+        <div class="social-links mt-3">
+          <a href="https://twitter.com/disdag" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="https://www.facebook.com/disdag" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="https://www.instagram.com/disdag" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="https://www.youtube.com/channel/disdag" class="youtube"><i class="bx bxl-youtube"></i></a>
+          <a href="https://soundcloud.com/disdag" class="soundcloud"><i class="bx bxl-soundcloud"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container footer-bottom clearfix">
+  <div class="copyright">
+    &copy;Copyright 2021<strong><span><a href="https://disdag.ntbprov.go.id/">Dinas Perdagangan Provinsi Nusa Tenggara Barat</a></span></strong>. All Rights Reserved
+  </div>
+  
+</div>
+</footer><!-- End Footer -->
+
+<a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+<div id="preloader"></div>
+
+  <script src="<?= base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
+  <script src="<?= base_url('assets/vendor/waypoints/jquery.waypoints.min.js'); ?>"></script>

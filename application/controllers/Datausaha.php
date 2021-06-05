@@ -2,33 +2,39 @@
 class Datausaha extends CI_Controller{
 	function __construct(){
 		parent::__construct();
-		$this->load->model('m_files');
 		$this->load->helper('download');
 		$this->load->model('m_pengunjung'); 
-		$this->load->model('m_datausaha'); 
-		$this->load->model('m_produk'); 
-        $this->load->model('m_profil_usaha');
-		$this->m_pengunjung->count_visitor(); 
+		$this->load->model('m_usaha'); 
+		$this->m_pengunjung->count_visitor();    
 	}
 	function index(){
-		$x['data']=$this->m_datausaha->get_all_based_kabupaten();
-		$x['tot_desa']=$this->db->get('data_desa_terdaftar')->num_rows();
-		$x['tot_produk']=$this->db->get_where('produk', ['deleted_at' => '0000-00-00 00:00:00'])->num_rows();
-		$x['tot_usaha']=$this->db->get_where('data_usaha', ['deleted_at' => '0000-00-00 00:00:00'])->num_rows();
-		$x['tot_pemasaran']=$this->db->get_where('produk', ['deleted_at' => '0000-00-00 00:00:00'])->num_rows();
-		$x['last_update'] = $this->db->select('created_at')->order_by('id_usaha', 'desc')->get_where('data_usaha', ['deleted_at' => '0000-00-00 00:00:00'])->row();
-		$grafik_jenis_usaha = $this->db->select('jenis_usaha, COUNT(id_usaha) as jumlah_jenis_usaha')->group_by('jenis_usaha')->get_where('data_usaha', ['deleted_at' => '0000-00-00 00:00:00'])->result();
+		$x['data']=$this->m_usaha->get_all_perkabupaten("SEMUA")->result(); 
+
+		$x['semua']=$this->m_usaha->get_total()->row_array();
+		$x['pertanian'] = $this->m_usaha->get_persektor("PERTANIAN")->row_array(); 
+		$x['kehutanan'] = $this->m_usaha->get_persektor("KEHUTANAN")->row_array(); 
+		$x['budidaya'] = $this->m_usaha->get_persektor("BUDIDAYA")->row_array(); 
+		$x['pertambangan'] = $this->m_usaha->get_persektor("PERTAMBANGAN")->row_array(); 
+		$x['jasa'] = $this->m_usaha->get_persektor("JASA")->row_array(); 
+		$x['industri'] = $this->m_usaha->get_persektor("INDUSTRI")->row_array(); 
+		$x['aktif'] = $this->m_usaha->get_perstatus("1")->row_array(); 
+		$x['inaktif'] = $this->m_usaha->get_perstatus("0")->row_array();  
+
+		$x['tot_produk']=$this->db->get_where('usaha', ['is_activated' => '0'])->num_rows();
+		$x['tot_usaha']=$this->db->get_where('usaha', ['is_activated' => '0'])->num_rows();
+		$x['tot_pemasaran']=$this->db->get_where('usaha', ['is_activated' => '0'])->num_rows();
+		$grafik_jenis_usaha = $this->db->select('komoditas, COUNT(*) as total')->group_by('komoditas')->get_where('usaha', ['is_activated' => '0'])->result();
 		$x['label_grafik_jenis_usaha'] = [];
 		$x['value_grafik_jenis_usaha'] = [];
 
 		foreach($grafik_jenis_usaha as $gfu)
 		{
 			$x['label_grafik_jenis_usaha'][] = [
-				$gfu->jenis_usaha
+				$gfu->komoditas
 			];
 
 			$x['value_grafik_jenis_usaha'][] = [
-				$gfu->jumlah_jenis_usaha
+				$gfu->total
 			];
 		}
 

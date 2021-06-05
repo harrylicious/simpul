@@ -6,24 +6,133 @@ class Dashboard extends CI_Controller{
             $url=base_url('administrator');
             redirect($url);
         };
-		$this->load->model('m_pengunjung');
-		$this->load->model('m_datausaha');
+		$this->load->model('m_pengunjung'); 
+		$this->load->model('m_usaha');
 	}
+
 	function index(){
-		if($this->session->userdata('akses')=='1'){
-			$x['visitor'] = $this->m_pengunjung->statistik_pengujung();
-			$x['data']=$this->m_datausaha->get_all_based_kabupaten();
-			$x['tot_desa']=$this->db->get('data_desa_terdaftar')->num_rows();
-			$x['tot_produk']=$this->db->get('produk')->num_rows();
-			$x['tot_usaha']=$this->db->get('data_usaha')->num_rows();
-			$x['tot_pemasaran']=$this->db->get('produk')->num_rows();
-			$x['jenis_usaha'] = $this->db->select('jenis_usaha, COUNT(id_usaha) as jumlah_jenis_usaha')->group_by('jenis_usaha')->get_where('data_usaha', ['deleted_at' => '0000-00-00 00:00:00'])->result();
-			$x['komoditas'] = $this->db->select('komoditas, COUNT(id_usaha) as jumlah_komoditas')->group_by('komoditas')->get_where('data_usaha', ['deleted_at' => '0000-00-00 00:00:00'])->result();
+		$x['visitor'] = $this->m_pengunjung->statistik_pengujung(); 
+		$wilayah = $this->session->userdata('wilayah');
+		$nama = $this->session->userdata('nama_lengkap'); 
+
+		
+		$idadmin = $this->session->userdata('idadmin');
+		$cek = $this->m_usaha->get_target_verifikasi($idadmin)->row_array();  
+
+		if($this->session->userdata('akses')=='1'){  
+			
+			if ($this->session->userdata('level') == "superadmin") {
+				$x['data'] = $this->m_usaha->get_all();  
+			}
+			else if ($this->session->userdata('level') == "admin") {
+				$x['data'] = $this->m_usaha->get_all_perkomoditas("SEMUA");  
+			}
+			else if ($this->session->userdata('level') == "relawan") {
+				$x['data']=$this->m_usaha->get_all_non_verified_kecamatan($cek['kecamatan']);  
+			}
+
+			$x['total']=$this->m_usaha->get_total()->row_array();   
+			$x['total_semua']=$this->m_usaha->get_total()->row_array();  
+ 
+			$x['ntb'] = $this->m_usaha->get_total()->row_array();
+			$x['lotim'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Lombok Timur")->row_array();
+			$x['loteng'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Lombok Tengah")->row_array();
+			$x['lobar'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Lombok Barat")->row_array();
+			$x['lout'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Lombok Utara")->row_array();
+			$x['sumbawa'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Sumbawa")->row_array();
+			$x['sumbar'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Sumbawa Barat")->row_array();
+			$x['bima'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Bima")->row_array();
+			$x['kota_bima'] = $this->m_usaha->get_all_perkabupaten("Kota Bima")->row_array();
+			$x['mataram'] = $this->m_usaha->get_all_perkabupaten("Kota Mataram")->row_array();
+			$x['dompu'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Dompu")->row_array();
+			
+			$x['musnah'] = $this->m_usaha->get_data_perkomoditas("Musnah", $wilayah);  
+			$x['berkas_perorangan'] = $this->m_usaha->get_data_perkomoditas("Berkas Perorangan", $wilayah); 
+			$x['dinilai_kembali'] = $this->m_usaha->get_data_perkomoditas("Dinilai Kembali", $wilayah); 
+			$x['permanen'] = $this->m_usaha->get_data_perkomoditas("Permanen", $wilayah); 
+			
 			$this->load->view('admin/v_dashboard',$x);
 		}else{
 			redirect('administrator');
 		}
 	
+	} 
+
+	function get_data_wilayah($wilayah){
+		$kode_uk_up=$this->session->userdata('kode_uk_up');
+		$wilayah = $this->session->userdata('wilayah');
+		$nama = $this->session->userdata('nama_lengkap'); 
+		if($this->session->userdata('akses')=='1'){
+			$x['visitor'] = $this->m_pengunjung->statistik_pengujung();
+
+			$x['total']=$this->m_usaha->get_total()->row_array();   
+			$x['total_semua']=$this->m_usaha->get_total()->row_array();  
+ 
+			$x['ntb'] = $this->m_usaha->get_total()->row_array();
+			$x['lotim'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Lombok Timur")->row_array();
+			$x['loteng'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Lombok Tengah")->row_array();
+			$x['lobar'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Lombok Barat")->row_array();
+			$x['lout'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Lombok Utara")->row_array();
+			$x['sumbawa'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Sumbawa")->row_array();
+			$x['sumbar'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Sumbawa Barat")->row_array();
+			$x['bima'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Bima")->row_array();
+			$x['kota_bima'] = $this->m_usaha->get_all_perkabupaten("Kota Bima")->row_array();
+			$x['mataram'] = $this->m_usaha->get_all_perkabupaten("Kota Mataram")->row_array();
+			$x['dompu'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Dompu")->row_array();
+			
+			$x['musnah'] = $this->m_usaha->get_data_perkomoditas("Musnah", $wilayah);  
+			$x['berkas_perorangan'] = $this->m_usaha->get_data_perkomoditas("Berkas Perorangan", $wilayah); 
+			$x['dinilai_kembali'] = $this->m_usaha->get_data_perkomoditas("Dinilai Kembali", $wilayah); 
+			$x['permanen'] = $this->m_usaha->get_data_perkomoditas("Permanen", $wilayah); 
+
+			
+			$x['data'] = $this->m_usaha->get_all_data_usaha_perkabupaten($wilayah);  
+
+			
+			//$x['last_update'] = $this->db->select('created_at')->order_by('id_usaha', 'desc')->get_where('usahas', ['deleted_at' => '0000-00-00 00:00:00'])->row();
+
+			$this->load->view('admin/v_usaha',$x);
+		}else{
+			redirect('administrator');
+		}
 	}
-	
+
+
+	function get_data_by_sektor($komoditas){
+		$nama = $this->session->userdata('nama_lengkap'); 
+
+		if($this->session->userdata('akses')=='1'){
+			$x['visitor'] = $this->m_pengunjung->statistik_pengujung();
+
+			$x['total']=$this->m_usaha->get_total()->row_array();   
+			$x['total_semua']=$this->m_usaha->get_total()->row_array();  
+
+			$x['ntb'] = $this->m_usaha->get_total()->row_array();
+			$x['lotim'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Lombok Timur")->row_array();
+			$x['loteng'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Lombok Tengah")->row_array();
+			$x['lobar'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Lombok Barat")->row_array();
+			$x['lout'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Lombok Utara")->row_array();
+			$x['sumbawa'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Sumbawa")->row_array();
+			$x['sumbar'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Sumbawa Barat")->row_array();
+			$x['bima'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Bima")->row_array();
+			$x['kota_bima'] = $this->m_usaha->get_all_perkabupaten("Kota Bima")->row_array();
+			$x['mataram'] = $this->m_usaha->get_all_perkabupaten("Kota Mataram")->row_array();
+			$x['dompu'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Dompu")->row_array();
+
+
+			
+			
+			$x['data'] = $this->m_usaha->get_data_perkomoditas($komoditas);  
+			$x['komoditas'] = $komoditas;
+
+			
+			//$x['last_update'] = $this->db->select('created_at')->order_by('id_usaha', 'desc')->get_where('usahas', ['deleted_at' => '0000-00-00 00:00:00'])->row();
+
+			$this->load->view('admin/v_usaha',$x);
+		}else{
+			redirect('administrator');
+		}
+	}
+
+
 }

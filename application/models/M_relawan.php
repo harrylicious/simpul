@@ -1,8 +1,10 @@
 <?php
 class M_relawan extends CI_model{
 
-    public $table ="relawan";
-    public $id = "id_relawan";
+    public $table ="documents";
+    public $view = "data_documents";
+
+    public $id = "dap_id";
     public $order ="DESC";
 
 
@@ -23,6 +25,7 @@ class M_relawan extends CI_model{
 
     // get all
     function get_all(){
+        $this->db->limit(10);
         return $this->db->get($this->table);
     }
 

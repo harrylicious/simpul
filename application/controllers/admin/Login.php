@@ -5,32 +5,84 @@ class Login extends CI_Controller{
         $this->load->model('m_login');
     }
     function index(){
-        $this->load->view('admin/v_login');
+        $this->load->view('admin/v_login'); 
     }
     function auth(){
         $username=strip_tags(str_replace("'", "", $this->input->post('username')));
         $password=strip_tags(str_replace("'", "", $this->input->post('password')));
         $u=$username;
         $p=$password;
-        $cadmin=$this->m_login->cekadmin($u,$p);
+        $cadmin=$this->m_login->cekadmin($u,$p); 
         echo json_encode($cadmin);
-        if($cadmin->num_rows() > 0){
+        if($cadmin->num_rows() > 0){  
          $this->session->set_userdata('masuk',true);
          $this->session->set_userdata('user',$u);
          $xcadmin=$cadmin->row_array();
-         if($xcadmin['pengguna_level']=='1'){
+         if($xcadmin['level']=='admin'){
             $this->session->set_userdata('akses','1');
-            $idadmin=$xcadmin['pengguna_id'];
-            $user_nama=$xcadmin['pengguna_nama'];
-            $this->session->set_userdata('idadmin',$idadmin);
-            $this->session->set_userdata('nama',$user_nama);
+            $id=$xcadmin['kode_user'];
+            $nama_lengkap=$xcadmin['nama_lengkap'];
+            $alamat=$xcadmin['alamat'];
+            $desa=$xcadmin['desa'];
+            $kecamatan=$xcadmin['kecamatan'];
+            $kabupaten = $xcadmin['kabupaten'];
+            $username = $xcadmin['username'];
+            $level = $xcadmin['level'];
+            $bidang = $xcadmin['bidang'];
+            $this->session->set_userdata('idadmin',$id);
+            $this->session->set_userdata('username',$username);
+            $this->session->set_userdata('nama_lengkap',$nama_lengkap);
+            $this->session->set_userdata('username',$username);
+            $this->session->set_userdata('alamat',$alamat);
+            $this->session->set_userdata('desa',$desa);
+            $this->session->set_userdata('kecamatan',$kecamatan);
+            $this->session->set_userdata('kabupaten',$kabupaten);
+            $this->session->set_userdata('level',$level);
+            $this->session->set_userdata('bidang',$bidang);
             redirect('admin/dashboard');
-         }else{
-             $this->session->set_userdata('akses','2');
-             $idadmin=$xcadmin['pengguna_id'];
-             $user_nama=$xcadmin['pengguna_nama'];
-             $this->session->set_userdata('idadmin',$idadmin);
-             $this->session->set_userdata('nama',$user_nama);
+         }else if($xcadmin['level']=='superadmin'){
+            $this->session->set_userdata('akses','1');
+            $id=$xcadmin['kode_user'];
+            $nama_lengkap=$xcadmin['nama_lengkap'];
+            $alamat=$xcadmin['alamat'];
+            $desa=$xcadmin['desa'];
+            $kecamatan=$xcadmin['kecamatan'];
+            $kabupaten = $xcadmin['kabupaten'];
+            $username = $xcadmin['username'];
+            $level = $xcadmin['level'];
+            $bidang = $xcadmin['bidang'];
+            $this->session->set_userdata('idadmin',$id);
+            $this->session->set_userdata('username',$username);
+            $this->session->set_userdata('nama_lengkap',$nama_lengkap);
+            $this->session->set_userdata('username',$username);
+            $this->session->set_userdata('alamat',$alamat);
+            $this->session->set_userdata('desa',$desa);
+            $this->session->set_userdata('kecamatan',$kecamatan);
+            $this->session->set_userdata('kabupaten',$kabupaten);
+            $this->session->set_userdata('level',$level);
+            $this->session->set_userdata('bidang',$bidang);
+            redirect('admin/dashboard'); }
+            else if($xcadmin['level']=='relawan'){
+             $this->session->set_userdata('akses','1');
+             $id=$xcadmin['kode_user'];
+             $nama_lengkap=$xcadmin['nama_lengkap'];
+             $alamat=$xcadmin['alamat'];
+             $desa=$xcadmin['desa'];
+             $kecamatan=$xcadmin['kecamatan'];
+             $kabupaten = $xcadmin['kabupaten'];
+             $username = $xcadmin['username'];
+             $level = $xcadmin['level'];
+             $bidang = $xcadmin['bidang'];
+             $this->session->set_userdata('idadmin',$id);
+             $this->session->set_userdata('username',$username);
+             $this->session->set_userdata('nama_lengkap',$nama_lengkap);
+             $this->session->set_userdata('username',$username);
+             $this->session->set_userdata('alamat',$alamat);
+             $this->session->set_userdata('desa',$desa);
+             $this->session->set_userdata('kecamatan',$kecamatan);
+             $this->session->set_userdata('kabupaten',$kabupaten);
+             $this->session->set_userdata('level',$level);
+             $this->session->set_userdata('bidang',$bidang);
              redirect('admin/dashboard');
          }
 

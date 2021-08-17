@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'usaha';
 $route['administrator']='admin/login';
 $route['artikel']='blog';
-$route['artikel']='blog/index';
+$route['artikel']='blog/index'; 
 $route['artikel/(:any)']='blog/detail/$1';
 $route['produk']='produk';
 $route['produk']='produk/index';

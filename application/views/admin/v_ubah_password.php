@@ -50,7 +50,7 @@
                             <h5 class="info-text"></h5>
                         </div>
  
-                        <form action="<?= base_url('admin/user/update_password/'.$_SESSION['kode_uk_up']); ?>" method="post">
+                        <form action="<?= base_url('admin/user/update_password/'.$_SESSION['idadmin']); ?>" method="post">
                             <div class="row">
                                 <div class="col-sm-12 ">
                                     <div class="col-sm-6">

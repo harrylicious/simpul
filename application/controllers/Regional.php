@@ -10,15 +10,13 @@ class Regional extends CI_Controller{
  
 	function index(){
 		$x['data']=$this->m_usaha->get_all_perkabupaten("SEMUA")->result();  
+		
 		$x['semua']=$this->m_usaha->get_total()->row_array();
-		$x['pertanian'] = $this->m_usaha->get_persektor("PERTANIAN")->row_array(); 
-		$x['kehutanan'] = $this->m_usaha->get_persektor("KEHUTANAN")->row_array(); 
-		$x['budidaya'] = $this->m_usaha->get_persektor("BUDIDAYA")->row_array(); 
-		$x['pertambangan'] = $this->m_usaha->get_persektor("PERTAMBANGAN")->row_array(); 
-		$x['jasa'] = $this->m_usaha->get_persektor("JASA")->row_array(); 
-		$x['industri'] = $this->m_usaha->get_persektor("INDUSTRI")->row_array(); 
-		$x['aktif'] = $this->m_usaha->get_perstatus("1")->row_array(); 
-		$x['inaktif'] = $this->m_usaha->get_perstatus("0")->row_array();  
+		$x['nasional'] = $this->m_usaha->get_all_perskala_pasar("Nasional")->row_array(); 
+		$x['komoditas'] = $this->m_usaha->get_all_data_perkomoditas("")->row_array(); 
+		$x['regional'] = $this->m_usaha->get_all_perdesa_terdaftar()->row_array(); 
+		$x['online'] = $this->m_usaha->get_all_permetode_pemasaran("ONLINE")->row_array(); 
+		$x['offline'] = $this->m_usaha->get_all_permetode_pemasaran("OFFLINE")->row_array(); 
 
 		//$x['last_update'] = last_updated();
 
@@ -34,18 +32,15 @@ class Regional extends CI_Controller{
 	function get_perwilayah($wilayah){
 
 		$x['semua']=$this->m_usaha->get_total()->row_array();
-		$x['pertanian'] = $this->m_usaha->get_persektor("PERTANIAN")->row_array(); 
-		$x['kehutanan'] = $this->m_usaha->get_persektor("KEHUTANAN")->row_array(); 
-		$x['budidaya'] = $this->m_usaha->get_persektor("BUDIDAYA")->row_array(); 
-		$x['pertambangan'] = $this->m_usaha->get_persektor("PERTAMBANGAN")->row_array(); 
-		$x['jasa'] = $this->m_usaha->get_persektor("JASA")->row_array(); 
-		$x['industri'] = $this->m_usaha->get_persektor("INDUSTRI")->row_array(); 
-		$x['aktif'] = $this->m_usaha->get_perstatus("1")->row_array(); 
-		$x['inaktif'] = $this->m_usaha->get_perstatus("0")->row_array();  
+		$x['nasional'] = $this->m_usaha->get_all_perskala_pasar("Nasional")->row_array(); 
+		$x['komoditas'] = $this->m_usaha->get_all_data_perkomoditas("")->row_array(); 
+		$x['regional'] = $this->m_usaha->get_all_perdesa_terdaftar()->row_array(); 
+		$x['online'] = $this->m_usaha->get_all_permetode_pemasaran("ONLINE")->row_array(); 
+		$x['offline'] = $this->m_usaha->get_all_permetode_pemasaran("OFFLINE")->row_array(); 
 
 		$x['wilayah'] = $wilayah;
 
-		$x['data'] = $this->m_usaha->get_data_perkabupaten($wilayah)->result(); 
+		$x['data'] = $this->m_usaha->get_all_data_usaha_perkabupaten($wilayah)->result();  
 		
 
 		$this->load->view('depan/v_usaha_wilayah',$x); 
@@ -55,12 +50,11 @@ class Regional extends CI_Controller{
 	function get_by_jenis($jenis){
 		$x['data']=$this->m_usaha->get_all_by_jenis($jenis);
 		$x['semua']=$this->m_usaha->get_total()->row_array();
-		$x['tekstual'] = $this->m_usaha->get_perjenis("TEKSTUAL")->row_array(); 
-		$x['audio'] = $this->m_usaha->get_perjenis("AUDIO VISUAL")->row_array(); 
-		$x['gambar'] = $this->m_usaha->get_perjenis("GAMBAR")->row_array(); 
-		$x['alih_media'] = $this->m_usaha->get_perjenis("ALIH MEDIA")->row_array(); 
-		$x['aktif'] = $this->m_usaha->get_perstatus_aktif()->row_array(); 
-		$x['inaktif'] = $this->m_usaha->get_perstatus_inaktif()->row_array(); 
+		$x['nasional'] = $this->m_usaha->get_all_perskala_pasar("Nasional")->row_array(); 
+		$x['komoditas'] = $this->m_usaha->get_all_data_perkomoditas("")->row_array(); 
+		$x['regional'] = $this->m_usaha->get_all_perdesa_terdaftar()->row_array(); 
+		$x['online'] = $this->m_usaha->get_all_permetode_pemasaran("ONLINE")->row_array(); 
+		$x['offline'] = $this->m_usaha->get_all_permetode_pemasaran("OFFLINE")->row_array(); 
 
 
 		$x['jenis'] = $jenis;	

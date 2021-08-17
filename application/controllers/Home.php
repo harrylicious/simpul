@@ -13,22 +13,12 @@ class Home extends CI_Controller{
 		$this->m_pengunjung->count_visitor();
 	}
 	function index(){
-			$x['berita']=$this->m_tulisan->get_berita_home();
-			$x['sambutan']=$this->m_tulisan->get_sambutan_home();
-			$x['produk']=$this->m_produk->get_produk_home(4);
-			$x['usaha']=$this->m_datausaha->get_data_usaha();
-			$x['pengumuman']=$this->m_pengumuman->get_pengumuman_home();
-			$x['agenda']=$this->m_agenda->get_agenda_home();
-			$x['tot_desa']=$this->db->get('data_desa_terdaftar')->num_rows();
-			$x['tot_relawan']=$this->db->get('relawan')->num_rows();
-			$x['tot_usaha']=$this->db->get('profil_usaha')->num_rows();
-			$x['tot_agenda']=$this->db->get('tbl_agenda')->num_rows();
-
-			//Get Count of Kategori Usaha
-			
-			$x['tot_agribisnis']=$this->db->query('select *from data_kategori_usaha where id=1')->num_rows();
-			$x['tot_mesin']=$this->db->query('select *from data_kategori_usaha where id=2')->num_rows();
-			$x['tot_kesehatan']=$this->db->query('select *from data_kategori_usaha where id=3')->num_rows();
+			$x['semua']=$this->m_usaha->get_total()->row_array();
+			$x['nasional'] = $this->m_usaha->get_all_perskala_pasar("Nasional")->row_array(); 
+			$x['komoditas'] = $this->m_usaha->get_all_data_perkomoditas("")->row_array(); 
+			$x['regional'] = $this->m_usaha->get_all_perdesa_terdaftar()->row_array(); 
+			$x['online'] = $this->m_usaha->get_all_permetode_pemasaran("ONLINE")->row_array(); 
+			$x['offline'] = $this->m_usaha->get_all_permetode_pemasaran("OFFLINE")->row_array(); 
 
 			$this->load->view('depan/v_home',$x);
 	}

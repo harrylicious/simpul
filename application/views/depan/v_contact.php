@@ -1,9 +1,21 @@
-
-<?php include_once "parsial/header.php"; ?>
-  <!--============================= HEADER =============================-->
-
+<!--============================= HEADER =============================-->
+<?php include_once "parsial/header.php";
+?>
+<!--//END HEADER -->
+<style>
+  tfoot input {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+  }
+</style>
 
 <!--//END HEADER -->
+<div class="p-5 mb-0" style="background: rgba(137, 3, 0, 0);"></div>
+
+
+
+
 <section class="contact">
     <div class="container">
         <div class="row">
@@ -56,7 +68,7 @@
                                         <i class="fa fa-envelope-o" aria-hidden="true"></i>
                                         <h6>Email</h6>
                                         <p>info@simpul.id
-                                            <br> admin@unisco.edu
+                                            
                                         </p>
                                     </div>
                                     <br>

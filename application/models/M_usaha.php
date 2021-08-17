@@ -5,13 +5,25 @@ class M_usaha extends CI_Model{
     public $tabel_produk ="produk";
     public $tabel_legalitas ="legalitas";
     public $tabel_bantuan ="bantuan";
+    public $tabel_komoditas ="ket_komoditas";
+    public $tabel_sumber_modal ="ket_sumber_modal";
+    public $tabel_sektor_usaha ="ket_sektor_usaha";
+    public $tabel_sub_sektor_usaha ="ket_sub_sektor_usaha";
+    public $tabel_status_kepemilikan ="ket_status_kepemilikan";
     public $tabel_target_verifikasi ="target_verifikasi";
+
     public $view_perkabupaten ="data_usaha_perkabupaten";
     public $view_perkomoditas ="data_usaha_perkomoditas";
+    public $view_metode_pemasaran ="total_data_metode_pemasaran";
+    public $view_skala_pasar ="total_data_skala_pasar";
+    public $view_regional ="total_data_kabupaten";
+    
+
     public $view_total_luas_lahan_semua_komoditas ="data_usaha_total_luas_lahan_semua_komoditas";
     public $view_total_kapasitas_produksi_semua_komoditas ="data_usaha_total_kapasitas_produksi_semua_komoditas";
     public $view_data_aktif ="data_document_aktif";
     public $view_data_inaktif ="data_document_inaktif";
+
     public $id = "id";
     public $kode_user = "kode_user";
     public $nama = "nama_usaha";
@@ -100,10 +112,41 @@ class M_usaha extends CI_Model{
 
     }
 
+    // get all
+    function get_all_data_perkomoditas($komoditas){
+        return $this->db->query("select COUNT(*) as total from total_data_komoditas");
+
+    }
+
+     // get all
+     function get_all_perskala_pasar($skala_pasar){
+        if ($skala_pasar != "SEMUA") { 
+            $this->db->where("skala_pasar", urldecode($skala_pasar));
+        }
+        return $this->db->get($this->view_skala_pasar); 
+
+    }
+
+    // get all
+    function get_all_permetode_pemasaran($metode_pemasaran){
+        echo $metode_pemasaran;
+        if ($metode_pemasaran != "SEMUA") { 
+            $this->db->where("metode_pemasaran", urldecode($metode_pemasaran));
+        }
+        return $this->db->get($this->view_metode_pemasaran); 
+
+    }
+
+    // get all
+    function get_all_perdesa_terdaftar(){
+        return $this->db->query("select *from total_data_desa_terdaftar");
+
+    }
+
     
     // get all
     function get_all_data_usaha_perkabupaten($wilayah){
-        if ($wilayah != "SEMUA") { 
+        if ($wilayah != "SEMUA") {  
             $this->db->where($this->wilayah, urldecode($wilayah));
         }
         return $this->db->get($this->tabel); 
@@ -119,26 +162,35 @@ class M_usaha extends CI_Model{
 
     }
  
+     // get all 
+     function get_data_komoditas_perkabupaten($wilayah, $komoditas){
+        if ($wilayah != "SEMUA") { 
+            $this->db->where($this->wilayah, urldecode($wilayah));
+            $this->db->where($this->komoditas, urldecode($komoditas));
+        }
+        return $this->db->get($this->tabel); 
+
+    }
     
-    // get all
+    // get all 
     function get_data_total_luas_lahan_perkabupaten($wilayah, $komoditas){
         if ($wilayah == "SEMUA") { 
             $this->db->where($this->komoditas, urldecode($komoditas));
             return $this->db->get($this->view_total_luas_lahan_semua_komoditas); 
         }
         else {
-            return $this->db->query("select kabupaten, sum(luas_lahan) as total from usaha where komoditas='".urldecode($komoditas)."' group by kabupaten"); 
+            return $this->db->query("select kabupaten, count(distinct kabupaten) as jml_usaha,  sum(luas_lahan) as total from usaha where komoditas='".urldecode($komoditas)."' group by kabupaten"); 
         }
 
     }
 
-      // get all
-      function get_data_total_luas_lahan_perkecamatan($wilayah, $komoditas){
+    // get all
+    function get_data_total_luas_lahan_perkecamatan($wilayah, $komoditas){
         if ($wilayah == "SEMUA") { 
             return $this->db->query("select kecamatan, sum(luas_lahan) from usaha where komoditas = '".urldecode($komoditas)."' group by kecamatan"); 
         }
         else {
-            return $this->db->query("select kecamatan, sum(luas_lahan) from usaha where komoditas = '".urldecode($komoditas)."' and kabupaten='".urldecode($wilayahs)."'  group by kecamatan"); 
+            return $this->db->query("select kecamatan, sum(luas_lahan) from usaha where komoditas = '".urldecode($komoditas)."' and kabupaten='".urldecode($wilayah)."'  group by kecamatan"); 
         }
 
     }
@@ -170,6 +222,39 @@ class M_usaha extends CI_Model{
             $this->db->where($this->komoditas, urldecode($komoditas));
         }
         return $this->db->get($this->tabel)->result(); 
+
+    }
+
+    // get all
+    function get_data_komoditas(){
+        return $this->db->get($this->tabel_komoditas); 
+
+    }
+
+    
+    // get all
+    function get_data_sumber_modal(){
+        return $this->db->get($this->tabel_sumber_modal); 
+
+    }
+
+    
+    // get all
+    function get_data_sektor_usaha(){
+        return $this->db->get($this->tabel_sektor_usaha); 
+
+    }
+    
+    // get all
+    function get_data_sub_sektor_usaha(){
+        return $this->db->get($this->tabel_sub_sektor_usaha); 
+
+    }
+
+    
+    // get all
+    function get_data_status_kepemilikan(){
+        return $this->db->get($this->tabel_status_kepemilikan); 
 
     }
 

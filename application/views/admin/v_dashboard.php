@@ -1,53 +1,4 @@
-<?php 
-if (isset($total['total'])) {
-    $semua = $total['total'];
-  }
-  else {
-    $semua = 0;
-  }
-if (isset($tekstual)) {
-  $teks = $tekstual;
-}
-else {
-  $teks = 0;
-}
-if (isset($audio)) {
-  $audio = $audio;
-}
-else {
-  $audio = 0;
-}
-if (isset($gambar)) {
-  $gambar = $gambar;
-}
-else {
-  $gambar = 0;
-}
-if (isset($alih_media)) {
-  $alih_media = $alih_media;
-}
-else {
-  $alih_media = 0;
-}
-if (isset($peta)) {
-  $peta = $peta;
-}
-else {
-  $peta = 0;
-}
-if (isset($aktif['total'])) {
-  $aktif = $aktif['total'];
-}
-else {
-  $aktif = 0;
-}
-if (isset($inaktif['total'])) {
-  $inaktif = $inaktif['total'];
-}
-else {   
-  $inaktif = 0;
-}
-?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,10 +43,10 @@ tfoot input {
                             <?php 
                                 $teks = "Data Usaha Berdasarkan Komoditas";
                                 if ($_SESSION['level'] == "superadmin") {
-                                  $teks = "Daftar Semua Usaha <b>".$_SESSION['nama_lengkap']."</b>";
+                                  $teks = "Daftar Semua Usaha <b>".$_SESSION['alamat']."</b>";
                                 }
                                 else if ($_SESSION['level'] == "admin") {
-                                  $teks = "Daftar Usaha Berdasarkan Komoditas <b>".$_SESSION['nama_lengkap']."</b>";
+                                  $teks = "Daftar Usaha Berdasarkan Komoditas <b>".$_SESSION['lingkup']."</b>";
                                 }
                                 else {
                                   $teks = "Daftar Semua Usaha Kecamatan <b>".$_SESSION['kecamatan']."</b>";
@@ -154,7 +105,7 @@ tfoot input {
                                                         <th>Sub Sektor</th>
                                                         <th>Alamat</th>
                                                         <th>Desa</th>
-                                                        <th>Kecamatab</th>
+                                                        <th>Kecamatan</th>
                                                         <th>Kabupaten</th>
                                                         <th>Komoditas</th>
                                                         <th>Jml. Karyawan</th> 
@@ -253,13 +204,13 @@ tfoot input {
             {
                 extend: 'copyHtml5',
                 exportOptions: {
-                  columns: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19 ]
+                  columns: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]
                 }
             },
             {
                 extend: 'excelHtml5',
                 exportOptions: {
-                    columns: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19 ],
+                    columns: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
                     
                 },
                 filename: function(){
@@ -280,14 +231,14 @@ tfoot input {
                 } 
                 today = dd+'-'+mm+'-'+yyyy;
 
-                return 'Daftar_Arsip_'+ '_' + today;
+                return 'Daftar_Usaha'+' <?= urldecode($wilayah); ?>' + '_' + today;
               },
 
             },
             {
                 extend: 'csvHtml5',
                 exportOptions: {
-                    columns: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19 ],
+                    columns: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14 ],
                 },
                 filename: function(){
                   
@@ -307,7 +258,7 @@ tfoot input {
                   } 
                   today = dd+'-'+mm+'-'+yyyy;
   
-                  return 'Daftar_Arsip_'+ '_' + today;
+                  return 'Daftar_Usaha'+' <?= urldecode($wilayah); ?>' + '_' + today;
                 },
 
             },

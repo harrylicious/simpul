@@ -139,10 +139,6 @@ class Usaha extends CI_Controller{
 			$x['mataram'] = $this->m_usaha->get_all_perkabupaten("Kota Mataram")->row_array();
 			$x['dompu'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Dompu")->row_array();
 			
-			$x['musnah'] = $this->m_usaha->get_data_perkomoditas("Musnah", $wilayah);  
-			$x['berkas_perorangan'] = $this->m_usaha->get_data_perkomoditas("Berkas Perorangan", $wilayah); 
-			$x['dinilai_kembali'] = $this->m_usaha->get_data_perkomoditas("Dinilai Kembali", $wilayah); 
-			$x['permanen'] = $this->m_usaha->get_data_perkomoditas("Permanen", $wilayah); 
 			
 			$this->load->view('admin/v_verifikasi_usaha',$x);
 		}else{
@@ -152,9 +148,18 @@ class Usaha extends CI_Controller{
 
 	function edit($id){ 
 		//$kode=$this->session->userdata('idadmin');
-		//$x['user']=$this->m_usaha->get_pengguna_login($kode);
+		//$x['user']=$this->m_usaha->get_pengguna_login($kode); 
 
 		$x['data'] = $this->m_usaha->get_detail($id)->row_array(); 
+		$x['data_sektor'] = $this->m_usaha->get_detail($id)->result(); 
+		$x['data_sub_sektor'] = $this->m_usaha->get_detail($id)->result(); 
+
+		$x['data_komoditas'] = $this->m_usaha->get_data_komoditas(); 
+		$x['data_sumber_modal'] = $this->m_usaha->get_data_sumber_modal()->result(); 
+		$x['data_status_kepemilikan'] = $this->m_usaha->get_data_status_kepemilikan()->result(); 
+		$x['data_sektor_usaha'] = $this->m_usaha->get_data_sektor_usaha()->result(); 
+		$x['data_sub_sektor_usaha'] = $this->m_usaha->get_data_sub_sektor_usaha()->result(); 
+
 		$this->session->set_flashdata('msg', 'Berhasil');
 		$this->load->view('admin/v_edit_usaha',$x);
 	}
@@ -176,6 +181,13 @@ class Usaha extends CI_Controller{
 			
 			$x['data'] = $this->m_user->get_detail($id)->row_array(); 
 			$x['data_target_verifikasi']=$this->m_usaha->get_target_verifikasi($idadmin)->result();  
+
+			
+			$x['data_komoditas'] = $this->m_usaha->get_data_komoditas(); 
+			$x['data_sumber_modal'] = $this->m_usaha->get_data_sumber_modal()->result(); 
+			$x['data_status_kepemilikan'] = $this->m_usaha->get_data_status_kepemilikan()->result(); 
+			$x['data_sektor_usaha'] = $this->m_usaha->get_data_sektor_usaha()->result(); 
+			$x['data_sub_sektor_usaha'] = $this->m_usaha->get_data_sub_sektor_usaha()->result(); 
 			
 			
 			$this->load->view('admin/v_tambah_usaha',$x);
@@ -201,50 +213,64 @@ class Usaha extends CI_Controller{
 
 	function save_data(){
 
-		$nomor_berkas=$this->input->post('nomor_berkas');
-		$nomor_arsip=$this->input->post('nomor_arsip');
-		$unit_arsip=$this->session->kode_uk_up;
-		$kode_klasifikasi=$this->input->post('kode_klasifikasi');
-		$uraian=$this->input->post('uraian');
-		$pencipta=$this->input->post('pencipta');
-		$tgl_cipta=$this->input->post('tgl_cipta');
-		$media=$this->input->post('media');
-		$jenis=$this->input->post('jenis');
-		$jumlah_satuan=$this->input->post('jumlah_satuan');
-		$kondisi=$this->input->post('kondisi');
-		$lokasi_simpan=$this->input->post('lokasi_simpan');
-		$tingkat_perkembangan=$this->input->post('tingkat_perkembangan');
-		$nasib_akhir=$this->input->post('nasib_akhir');
-		$arsip_vital=$this->input->post('arsip_vital');
-		$keamanan=$this->input->post('keamanan');
-		$tgl_akhir_aktif=$this->input->post('tgl_akhir_aktif');
-		$tgl_akhir_inaktif=$this->input->post('tgl_akhir_inaktif');
-		$deskripsi=$this->input->post('deskripsi');
+		$nama_usaha=$this->input->post('nama_usaha');
+		$th_berdiri=$this->input->post('th_berdiri');
+		$no_izin=$this->input->post('no_izin');
+		$nama_pimpinan=$this->input->post('nama_pimpinan');
+		$nik=$this->input->post('nik');
+		$sektor_usaha=$this->input->post('sektor_usaha');
+		$sub_sektor_usaha=$this->input->post('sub_sektor_usaha');
+		$alamat=$this->input->post('alamat');
+		$desa=$this->input->post('desa');
+		$kecamatan=$this->input->post('kecamatan');
+		$kabupaten=$this->input->post('kabupaten');
+		$komoditas=$this->input->post('komoditas');
+		$jml_karyawan=$this->input->post('jml_karyawan');
+		$kapasitas_produksi=$this->input->post('kapasitas_produksi');
+		$satuan_produksi=$this->input->post('satuan_produksi');
+		$periode_produksi=$this->input->post('periode_produksi');
+		$status_kepemilikan=$this->input->post('status_kepemilikan');
+		//$status_kepengurusan=$this->input->post('status_kepengurusan');
+		$status_kepemilikan_tempat=$this->input->post('status_kepemilikan_tempat');
+		$metode_pemasaran=$this->input->post('metode_pemasaran');
+		$sumber_modal=$this->input->post('sumber_modal');
+		$skala_pasar=$this->input->post('skala_pasar');
+		$luas_lahan=$this->input->post('luas_lahan');
+		$periode_tanam=$this->input->post('periode_tanam');
+		$telpon=$this->input->post('telpon');
+		$email=$this->input->post('email');
+		$website=$this->input->post('website');
 		//$level=$this->input->post('xlevel');
 
 
 
 
 		$data=array(
-			'nomor_berkas'=>$nomor_berkas,
-			'nomor_arsip'=>$nomor_arsip,
-			'unit_arsip'=>$unit_arsip,
-			'kode_klasifikasi'=>$kode_klasifikasi,
-			'uraian'=> $uraian,
-			'pencipta'=>$pencipta,
-			'tgl_cipta'=>$tgl_cipta,
-			'media'=>$media,
-			'jenis'=>$jenis,
-			'jumlah_satuan'=>$jumlah_satuan,
-			'kondisi'=>$kondisi,
-			'lokasi_simpan'=>$lokasi_simpan,
-			'tingkat_perkembangan'=>$tingkat_perkembangan,
-			'nasib_akhir'=>$nasib_akhir,
-			'arsip_vital'=>$arsip_vital,
-			'keamanan'=>$keamanan,
-			'tgl_akhir_aktif'=>$tgl_akhir_aktif,
-			'tgl_akhir_inaktif'=>$tgl_akhir_inaktif,
-			'deskripsi'=>$deskripsi
+			'nama_usaha'=>$nama_usaha,
+			'th_berdiri'=>$th_berdiri,
+			'no_izin'=>$no_izin,
+			'nik'=>$nik,
+			'sektor_usaha'=>$sektor_usaha,
+			'sub_sektor_usaha'=>$sub_sektor_usaha,
+			'alamat'=>$alamat,
+			'desa'=>$desa,
+			'kecamatan'=>$kecamatan,
+			'kabupaten'=> $kabupaten,
+			'komoditas'=>$komoditas,
+			'jml_karyawan'=>$jml_karyawan,
+			'kapasitas_produksi'=>$kapasitas_produksi,
+			'satuan_produksi'=>$satuan_produksi,
+			'periode_produksi'=>$periode_produksi,
+			'status_kepemilikan'=>$status_kepemilikan,
+			//'status_kepengurusan'=>$status_kepengurusan,
+			'status_kepemilikan_tempat'=>$status_kepemilikan_tempat,
+			'sumber_modal'=>$sumber_modal,
+			'skala_pasar'=>$skala_pasar,
+			'luas_lahan'=>$luas_lahan,
+			'periode_tanam'=>$periode_tanam,
+			'telpon'=>$telpon,
+			'email'=>$email,
+			'website'=>$website
 		);
 
 	
@@ -254,212 +280,76 @@ class Usaha extends CI_Controller{
 
 	
 function update_data(){
-
-	$dap_id=$this->input->post('dap_id');
-	$nomor_berkas=$this->input->post('nomor_berkas');
-	$nomor_arsip=$this->input->post('nomor_arsip');
-	$unit_arsip=$this->session->kode_uk_up;
-	$kode_klasifikasi=$this->input->post('kode_klasifikasi');
-	$uraian=$this->input->post('uraian');
-	$pencipta=$this->input->post('pencipta');
-	$tgl_cipta=$this->input->post('tgl_cipta');
-	$media=$this->input->post('media');
-	$jenis=$this->input->post('jenis');
-	$jumlah_satuan=$this->input->post('jumlah_satuan');
-	$kondisi=$this->input->post('kondisi');
-	$lokasi_simpan=$this->input->post('lokasi_simpan');
-	$tingkat_perkembangan=$this->input->post('tingkat_perkembangan');
-	$nasib_akhir=$this->input->post('nasib_akhir');
-	$arsip_vital=$this->input->post('arsip_vital');
-	$keamanan=$this->input->post('keamanan');
-	$tgl_akhir_aktif=$this->input->post('tgl_akhir_aktif');
-	$tgl_akhir_inaktif=$this->input->post('tgl_akhir_inaktif');
-	$deskripsi=$this->input->post('deskripsi');
-	//$level=$this->input->post('xlevel');
  
+		$id=$this->input->post('id');
+		$nama_usaha=$this->input->post('nama_usaha');
+		$nama_pimpinan=$this->input->post('nama_pimpinan');
+		$th_berdiri=$this->input->post('th_berdiri');
+		$no_izin=$this->input->post('no_izin');
+		$nama_pimpinan=$this->input->post('nama_pimpinan');
+		$nik=$this->input->post('nik');
+		$sektor_usaha=$this->input->post('sektor_usaha');
+		$sub_sektor_usaha=$this->input->post('sub_sektor_usaha');
+		$alamat=$this->input->post('alamat');
+		$desa=$this->input->post('desa');
+		$kecamatan=$this->input->post('kecamatan');
+		$kabupaten=$this->input->post('kabupaten');
+		$komoditas=$this->input->post('komoditas');
+		$jml_karyawan=$this->input->post('jml_karyawan');
+		$kapasitas_produksi=$this->input->post('kapasitas_produksi');
+		$satuan_produksi=$this->input->post('satuan_produksi');
+		$periode_produksi=$this->input->post('periode_produksi');
+		$status_kepemilikan=$this->input->post('status_kepemilikan');
+		//$status_kepengurusan=$this->input->post('status_kepengurusan');
+		$status_kepemilikan_tempat=$this->input->post('status_kepemilikan_tempat');
+		$metode_pemasaran=$this->input->post('metode_pemasaran');
+		$sumber_modal=$this->input->post('sumber_modal');
+		$skala_pasar=$this->input->post('skala_pasar');
+		$luas_lahan=$this->input->post('luas_lahan');
+		$periode_tanam=$this->input->post('periode_tanam');
+		$telpon=$this->input->post('telpon');
+		$email=$this->input->post('email');
+		$website=$this->input->post('website');
+		//$level=$this->input->post('xlevel');
 
 
-	$data=array(
-		'nomor_berkas'=>$nomor_berkas,
-		'nomor_arsip'=>$nomor_arsip,
-		'unit_arsip'=>$unit_arsip,
-		'kode_klasifikasi'=>$kode_klasifikasi,
-		'uraian'=> $uraian,
-		'pencipta'=>$pencipta,
-		'tgl_cipta'=>$tgl_cipta,
-		'media'=>$media,
-		'jenis'=>$jenis,
-		'jumlah_satuan'=>$jumlah_satuan,
-		'kondisi'=>$kondisi,
-		'lokasi_simpan'=>$lokasi_simpan,
-		'tingkat_perkembangan'=>$tingkat_perkembangan,
-		'nasib_akhir'=>$nasib_akhir,
-		'arsip_vital'=>$arsip_vital,
-		'keamanan'=>$keamanan,
-		'tgl_akhir_aktif'=>$tgl_akhir_aktif,
-		'tgl_akhir_inaktif'=>$tgl_akhir_inaktif,
-		'deskripsi'=>$deskripsi
-	);
 
 
-	$this->m_usaha->update($dap_id, $data);
+		$data=array(
+			'nama_usaha'=>$nama_usaha,
+			'nama_pimpinan'=>$nama_pimpinan,
+			'th_berdiri'=>$th_berdiri,
+			'no_izin'=>$no_izin,
+			'nik'=>$nik,
+			'sektor_usaha'=>$sektor_usaha,
+			'sub_sektor_usaha'=>$sub_sektor_usaha,
+			'alamat'=>$alamat,
+			'desa'=>$desa,
+			'kecamatan'=>$kecamatan,
+			'kabupaten'=> $kabupaten,
+			'komoditas'=>$komoditas,
+			'jml_karyawan'=>$jml_karyawan,
+			'kapasitas_produksi'=>$kapasitas_produksi,
+			'satuan_produksi'=>$satuan_produksi,
+			'periode_produksi'=>$periode_produksi,
+			'status_kepemilikan'=>$status_kepemilikan,
+			'status_kepemilikan_tempat'=>$status_kepemilikan_tempat,
+			'sumber_modal'=>$sumber_modal,
+			'skala_pasar'=>$skala_pasar,
+			'luas_lahan'=>$luas_lahan,
+			'periode_tanam'=>$periode_tanam,
+			'telpon'=>$telpon,
+			'email'=>$email,
+			'website'=>$website
+		);
+
+	$this->m_usaha->update($id, $data);
 	redirect('admin/usaha');
 }
 
 
-function terima_inaktif($id)
-{
-	
-	$kode_uk_up=$this->session->userdata('kode_uk_up');
-	$wilayah = $this->session->userdata('wilayah');
-	$nama = $this->session->userdata('nama_lengkap');
-
-			
-	$x['musnah'] = $this->m_usaha->get_pernasib_berdasarkan_wilayah("Musnah", $wilayah);  
-	$x['berkas_perorangan'] = $this->m_usaha->get_pernasib_berdasarkan_wilayah("Berkas Perorangan", $wilayah); 
-	$x['dinilai_kembali'] = $this->m_usaha->get_pernasib_berdasarkan_wilayah("Dinilai Kembali", $wilayah); 
-	$x['permanen'] = $this->m_usaha->get_pernasib_berdasarkan_wilayah("Permanen", $wilayah); 
-
-	
-	$x['total_terima_inaktif'] = $this->m_usaha->get_total_riwayat_pindah_inaktif_per_kode_uk_up($kode_uk_up, 0);
-	$x['total_pindah_inaktif'] = $this->m_usaha->get_total_pindah_inaktif_dan_kode_uk_up($kode_uk_up);
-	$x['total_riwayat_pindah_inaktif'] = $this->m_usaha->get_total_riwayat_pindah_inaktif($kode_uk_up);
-
-	$this->m_usaha->set_setujui_terima_inaktif($id);
-	redirect('admin/dashboard/get_terima_pindah_inaktif_wilayah');
-}
-
-
-function tolak_inaktif($id){
-
-	$data_riwayat_pindah = $this->m_usaha->get_daftar_riwayat_pindah_inaktif_per_dap_id($id);  
-
-
-	foreach ($data_riwayat_pindah as $row):
-		$dap_id = $row->dap_id;
-		$unit_arsip = $row->unit_arsip_lama;
-		$lokasi_simpan = $row->lokasi_simpan_lama;
-
-		$data = array(
-			'dap_id' => $dap_id,
-			'unit_arsip' => $unit_arsip,
-			'lokasi_simpan' => $lokasi_simpan
-		);
-		
-		$this->m_usaha->update($dap_id, $data);
-		$this->m_usaha->delete_riwayat_pindah($dap_id);
-		
-
-    endforeach;
-	redirect('admin/dashboard/get_terima_pindah_inaktif_wilayah');
-}
-
-
-function update_data_random(){
-
-	$dap_id=$this->input->post('dap_id');
-	$nomor_berkas=$this->input->post('nomor_berkas');
-	$nomor_arsip=$this->input->post('nomor_arsip');
-	$unit_arsip=$this->session->kode_uk_up;
-	$kode_klasifikasi=$this->input->post('kode_klasifikasi');
-	$uraian=$this->input->post('uraian');
-	$pencipta=$this->input->post('pencipta');
-	$tgl_cipta=$this->input->post('tgl_cipta'); 
-	$media=$this->input->post('media');
-	$jenis=$this->input->post('jenis');
-	$jumlah_satuan=$this->input->post('jumlah_satuan');
-	$kondisi=$this->input->post('kondisi');
-	$lokasi_simpan=$this->input->post('lokasi_simpan');
-	$tingkat_perkembangan=$this->input->post('tingkat_perkembangan');
-	$nasib_akhir=$this->input->post('nasib_akhir');
-	$arsip_vital=$this->input->post('arsip_vital');
-	$keamanan=$this->input->post('keamanan');
-	$tgl_akhir_aktif=$this->input->post('tgl_akhir_aktif');
-	$tgl_akhir_inaktif=$this->input->post('tgl_akhir_inaktif');
-	$deskripsi=$this->input->post('deskripsi');
-	//$level=$this->input->post('xlevel');
- 
-
-	echo $dap_id;
-	echo "<script>console.log('".$dap_id."');</script>";
-
-	$cek = $this->m_usaha->get_detail($dap_id)->row_array();
-	
-	$get_unit_arsip = $cek['kode_uk_up'];
-	echo $get_unit_arsip; 
-
-	if ($get_unit_arsip != $_SESSION['kode_uk_up']) {
-		echo "Tidak diizinkan mengubah arsip dari unit arsip lain.";
-		return;
-	}
-
-	$data=array(
-		'nomor_berkas'=>$nomor_berkas,
-		'nomor_arsip'=>$nomor_arsip,
-		'unit_arsip'=>$unit_arsip,
-		'kode_klasifikasi'=>$kode_klasifikasi,
-		'uraian'=> $uraian,
-		'pencipta'=>$pencipta,
-		'tgl_cipta'=>$tgl_cipta,
-		'media'=>$media,
-		'jenis'=>$jenis,
-		'jumlah_satuan'=>$jumlah_satuan,
-		'kondisi'=>$kondisi,
-		'lokasi_simpan'=>$lokasi_simpan,
-		'tingkat_perkembangan'=>$tingkat_perkembangan,
-		'nasib_akhir'=>$nasib_akhir,
-		'arsip_vital'=>$arsip_vital,
-		'keamanan'=>$keamanan,
-		'tgl_akhir_aktif'=>$tgl_akhir_aktif,
-		'tgl_akhir_inaktif'=>$tgl_akhir_inaktif,
-		'deskripsi'=>$deskripsi
-	);
-
-
-	$this->m_usaha->update($dap_id, $data);
-	redirect('admin/usaha/edit_random');
-}
-
-
-function pindahkan_semua(){
-
-	$kode_uk_up=$this->session->userdata('kode_uk_up');
-	$data_inaktif = $this->m_usaha->get_daftar_pindah_inaktif_dan_wilayah($kode_uk_up);  
-
-	$kode_user = $_SESSION['idadmin'];
-	
-	$data_uk = $this->m_usaha->get_kode_uk_perkabupaten($kode_uk_up)->row_array(); 
-
-	foreach ($data_inaktif as $row):
-		$dap_id = $row->dap_id;
-		$unit_arsip = $row->unit_arsip;
-		$lokasi_simpan = $row->lokasi_simpan;
-
-		$data = array(
-			'dap_id' => $dap_id,
-			'unit_arsip_lama' => $kode_uk_up,
-			'lokasi_simpan_lama' => $lokasi_simpan,
-			'kode_user' => $kode_user
-		);
-		
-		$this->m_usaha->insert_into_riwayat_pindah($data);
-
-		$data_update = array(
-			'unit_arsip' => $data_uk['kode_uk_up'],
-			'lokasi_simpan' => str_replace("UP", "UK", $lokasi_simpan)
-		);
-
-		$this->m_usaha->update($dap_id, $data_update);
-		
-
-    endforeach;
-	redirect('admin/dashboard');
-}
-
 
 public function import_excel(){
-		$unit_arsip=$this->session->kode_uk_up; 
-	
 
 		$file_mimes = array('application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 
 		'text/csv','text/xls','text/xlsx', 'application/csv', 'application/excel', 'application/vnd.msexcel', 
@@ -481,54 +371,44 @@ public function import_excel(){
 
 				}
 			 
-			    $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
+			    $spreadsheet = $reader->load($_FILES['file']['tmp_name']); 
 			     
 			    $rowData = $spreadsheet->getActiveSheet()->toArray();
+				for($i = 1;$i < count($rowData);$i++)
+					{	
 
-			    for($i = 1;$i < count($rowData);$i++) 
-			    {	
-					$unit_arsip_excel = $rowData[$i][0];
-					$tgl_akhir_aktif = $rowData[$i][16];
-					$tgl_akhir_inaktif = $rowData[$i][17];
-					$deskripsi = $rowData[$i][18];
-
-
-				if ($unit_arsip != "SEKPROV") {
-					if ($unit_arsip != $unit_arsip_excel) {
-						
-						echo "Kode unit arsip tidak sesuai untuk ".$unit_arsip." dengan ".$unit_arsip_excel."</br>";
-						continue;
-					}
-				}
-				
-
-				    $data = array(						
-							"unit_arsip"=> $unit_arsip_excel,
-							"nomor_berkas"=> $rowData[$i][1],
-							"nomor_arsip"=> $rowData[$i][2],
-							"kode_klasifikasi"=> $rowData[$i][3],
-							"uraian"=> str_replace("'"," ", $rowData[$i][4]),
-							"tgl_cipta"=> $rowData[$i][5],
-							"jumlah_satuan"=> $rowData[$i][6],
-							"jenis"=> $rowData[$i][7],
-							"pencipta"=> $rowData[$i][8],
-							"media"=> $rowData[$i][9],
-							"kondisi"=> $rowData[$i][10],
-							"lokasi_simpan"=> $rowData[$i][11],
-							"tingkat_perkembangan"=> $rowData[$i][12],
-							"nasib_akhir"=> $rowData[$i][13],
-							"arsip_vital"=> $rowData[$i][14],
-							"keamanan"=> $rowData[$i][15],
-							"tgl_akhir_aktif"=> $tgl_akhir_aktif,
-							"tgl_akhir_inaktif"=> $tgl_akhir_inaktif,
-							"deskripsi"=>$deskripsi
+				    $data = array(	
+						'nama_usaha'=>$rowData[$i][1],
+						'nama_pimpinan'=>$rowData[$i][2],
+						'th_berdiri'=>$rowData[$i][3],
+						'no_izin'=>$rowData[$i][4],
+						'nik'=>$rowData[$i][5],
+						'sektor_usaha'=>$rowData[$i][6],
+						'sub_sektor_usaha'=>$rowData[$i][7],
+						'alamat'=>$rowData[$i][8],
+						'desa'=>$rowData[$i][9],
+						'kecamatan'=>$rowData[$i][10],
+						'kabupaten'=> $rowData[$i][11],
+						'komoditas'=>$rowData[$i][12],
+						'jml_karyawan'=>$rowData[$i][13],
+						'kapasitas_produksi'=>$rowData[$i][14],
+						'satuan_produksi'=>$rowData[$i][15],
+						'periode_produksi'=>$rowData[$i][16],
+						'status_kepemilikan'=>$rowData[$i][17],
+						'status_kepemilikan_tempat'=>$rowData[$i][18],
+						'metode_pemasaran'=>$rowData[$i][19],
+						'sumber_modal'=>$rowData[$i][20],
+						'skala_pasar'=>$rowData[$i][21],
+						'luas_lahan'=>$rowData[$i][22],
+						'telpon'=>$rowData[$i][23],
+						'email'=>$rowData[$i][24],
+						'website'=>$rowData[$i][25]
 				    	);
 						$this->m_usaha->insert($data);
 				   
 			    }
 				echo $this->session->set_flashdata('Import berhasil.','success-success');
 				redirect('admin/usaha');
-			  
 			}
 			
 }
@@ -598,7 +478,7 @@ public function import_update_excel(){
 						"arsip_vital"=> $rowData[$i][15],
 						"keamanan"=> $rowData[$i][16],
 						"tgl_akhir_aktif"=> $tgl_akhir_aktif,
-						"tgl_akhir_inaktif"=> $tgl_akhir_inaktif,
+						"tgl_akhir_inaktif"=> $tgl_akhir_inaktif, 
 						"deskripsi"=>$deskripsi
 					);
 					$this->m_usaha->update($dap_id, $data);
@@ -613,11 +493,9 @@ public function import_update_excel(){
 }
 
 
-function delete_data($dap_id){
-	 $data =array(
-		 'is_activated'=>1
-	 );
-	 $this->m_usaha->update($dap_id,$data);
+function delete_data($id){
+	
+	 $this->m_usaha->delete($id);
 		echo $this->session->set_flashdata('msg','success-hapus');
 		redirect('admin/usaha');
 }

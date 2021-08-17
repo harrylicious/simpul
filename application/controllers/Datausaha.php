@@ -11,14 +11,11 @@ class Datausaha extends CI_Controller{
 		$x['data']=$this->m_usaha->get_all_perkabupaten("SEMUA")->result(); 
 
 		$x['semua']=$this->m_usaha->get_total()->row_array();
-		$x['pertanian'] = $this->m_usaha->get_persektor("PERTANIAN")->row_array(); 
-		$x['kehutanan'] = $this->m_usaha->get_persektor("KEHUTANAN")->row_array(); 
-		$x['budidaya'] = $this->m_usaha->get_persektor("BUDIDAYA")->row_array(); 
-		$x['pertambangan'] = $this->m_usaha->get_persektor("PERTAMBANGAN")->row_array(); 
-		$x['jasa'] = $this->m_usaha->get_persektor("JASA")->row_array(); 
-		$x['industri'] = $this->m_usaha->get_persektor("INDUSTRI")->row_array(); 
-		$x['aktif'] = $this->m_usaha->get_perstatus("1")->row_array(); 
-		$x['inaktif'] = $this->m_usaha->get_perstatus("0")->row_array();  
+		$x['nasional'] = $this->m_usaha->get_all_perskala_pasar("Nasional")->row_array(); 
+		$x['komoditas'] = $this->m_usaha->get_all_data_perkomoditas("")->row_array(); 
+		$x['regional'] = $this->m_usaha->get_all_perdesa_terdaftar()->row_array(); 
+		$x['online'] = $this->m_usaha->get_all_permetode_pemasaran("ONLINE")->row_array(); 
+		$x['offline'] = $this->m_usaha->get_all_permetode_pemasaran("OFFLINE")->row_array(); 
 
 		$x['tot_produk']=$this->db->get_where('usaha', ['is_activated' => '0'])->num_rows();
 		$x['tot_usaha']=$this->db->get_where('usaha', ['is_activated' => '0'])->num_rows();

@@ -17,63 +17,57 @@
   <?php include_once "parsial/summary_doc.php"; ?>
 
 
-  <div class="row">
+
+  <div class="row mt-4 mb-4">
     <div class="col-md-12">
       <div class="card ">
         <div class="card-header ">
-          <h5 class="card-title"> ARSIP <strong><?= str_replace("%20", " ", strtoupper($jenis)); ?></strong></h5>
+          <h5 class="card-title"> DAFTAR KOMODITAS KABUPATEN <strong><?= urldecode(strtoupper($wilayah)); ?></strong></h5>
         </div>
         <div class="card-body ">
 
           <body>
-            <table id="dtHorizontalExample" class="display" style="width:100%">
-              <thead>
+          <table id="dtHorizontalExample" class="display" style="width:100%">
+            <thead>
+              <tr>
+                <th width="60px">No.</th>
+                <th>Nama UMKM</th>
+                <th>Alamat</th>
+                <th>Kecamatan</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <?php
+              $no = 1;
+              foreach ($data as $row) {
+              ?>
                 <tr>
-                  <th width="60px">ID Arsip</th>
-                  <th>Klasifikasi</th>
-                  <th>Judul/Uraian</th>
-                  <th>Tahun</th>
-                  <th>Jenis</th>
-                  <th>Aksi</th>
+                  <td><?= $no++; ?></td>
+                  <td><?= $row->nama_usaha; ?></td>
+                  <td><?= $row->alamat; ?></td>
+                  <td><?= $row->kecamatan; ?></td>
+                  <td><a href="<?= base_url('usaha/detail/') . $row->id; ?>" class="btn btn-danger">Detail</a></td>
                 </tr>
-              </thead>
 
-              <tbody>
-                <?php
-                $no = 1;
-                foreach ($data as $row) {
-                ?>
-                  <tr>
-                    <td><?= $row->dap_id; ?></td>
-                    <td><?= $row->kode_klasifikasi; ?></td>
-                    <td><?= $row->uraian; ?></td>
-                    <td><?= substr($row->tgl_cipta, 0, 4); ?></td>
-                    <td><?= $row->jenis; ?></td>
-                    <td><a href="<?= base_url('document/detail/') . $row->dap_id; ?>" class="btn btn-danger">Detail</a></td>
-                  </tr>
+              <?php
+              }
 
-                <?php
-                }
+              ?>
 
-                ?>
-
-              </tbody>
-
-            </table>
+            </tbody>
+          </table>
           </body>
         </div>
-
       </div>
     </div>
   </div>
 </div>
 </div>
-
-
   <div class="container-fluid px-0">
     <?php include_once "parsial/footer.php"; ?>
   </div>
-
 </div>
 
 

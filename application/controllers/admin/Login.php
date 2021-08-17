@@ -13,7 +13,7 @@ class Login extends CI_Controller{
         $u=$username;
         $p=$password;
         $cadmin=$this->m_login->cekadmin($u,$p); 
-        echo json_encode($cadmin);
+        //echo json_encode($cadmin);
         if($cadmin->num_rows() > 0){  
          $this->session->set_userdata('masuk',true);
          $this->session->set_userdata('user',$u);
@@ -61,7 +61,8 @@ class Login extends CI_Controller{
             $this->session->set_userdata('kabupaten',$kabupaten);
             $this->session->set_userdata('level',$level);
             $this->session->set_userdata('bidang',$bidang);
-            redirect('admin/dashboard'); }
+            redirect('admin/dashboard');
+         }
             else if($xcadmin['level']=='relawan'){
              $this->session->set_userdata('akses','1');
              $id=$xcadmin['kode_user'];

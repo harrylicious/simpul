@@ -15,7 +15,7 @@
 <div class="p-5 mb-0" style="background: rgba(137, 3, 0, 0);"></div>
 
 <div class="container">
-  <?php include_once "parsial/summary_doc.php"; ?>
+<?php include_once "parsial/summary_doc.php"; ?>
   
         <div class="row">
           <div class="col-md-12">

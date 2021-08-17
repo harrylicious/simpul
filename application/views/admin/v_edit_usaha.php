@@ -63,7 +63,7 @@
           </li>
         </ul>
 
-        <a href="<?= base_url('admin/usaha/tambah'.$_SESSION['idadmin']); ?>" class="btn btn-primary btn-block"><b>Segarkan</b></a>
+        <a href="<?= base_url('admin/usaha/tambah/'.$_SESSION['idadmin']); ?>" class="btn btn-primary btn-block"><b>Segarkan</b></a>
         
         <button class="btn btn-success  btn-block"  data-toggle="modal" data-target="#modal-default"><i class="fa fa-upload"> Import data</i></button>
         <a class="btn btn-success  btn-block" href="<?= base_url('assets/uploads/template/template-tambah.xls'); ?>" download="template-tambah.xls"><span class="fa fa-arrow-down"></span> Download template</a>
@@ -89,9 +89,10 @@
                     <h5 class="info-text"></h5>
                 </div>
 
-                <form action="<?= base_url('admin/usaha/save_data'); ?>" method="post">
+                <form action="<?= base_url('admin/usaha/update_data'); ?>" method="post">
                     <div class="row">
-                        <div class="col-sm-6 ">
+                            <input type="hidden" class="form-control" id="id" name="id" value="<?= $data['id']; ?>" value="<?= $data['id']; ?>">
+                           <div class="col-sm-6 ">
                             <div class="form-group">
                                 <label>Nama Usaha</label>
                                 <input type="text" class="form-control" id="nama_usaha" name="nama_usaha" placeholder="Nama Usaha" value="<?= $data['nama_usaha']; ?>" value="<?= $data['nama_usaha']; ?>" required>
@@ -110,14 +111,14 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>No. Izin</label>
-                                <input type="text" class="form-control" id="no_izin" name="no_izin" placeholder="No. Izin" value="<?= $data['no_izin']; ?>" required>
+                                <input type="text" class="form-control" id="no_izin" name="no_izin" placeholder="No. Izin" value="<?= $data['no_izin']; ?>">
                             </div>
                         </div>
 
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Nama Pimpinan</label>
-                                <input type="text" class="form-control" id="nama_pimpinan" name="nama_pimpinan" placeholder="Nama Pimpinan" value="<?= $data['nama_pimpinan']; ?>" required>
+                                <input type="text" class="form-control" id="nama_pimpinan" name="nama_pimpinan" placeholder="Nama Pimpinan" value="<?= $data['nama_pimpinan']; ?>">
                             </div>
                         </div>
                     </div>
@@ -126,7 +127,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>NIK Pimpinan</label>
-                                <input type="text" class="form-control" id="nik" name="nik" placeholder="NIK" value="<?= $data['nik']; ?>" required>
+                                <input type="text" class="form-control" id="nik" name="nik" placeholder="NIK" value="<?= $data['nik']; ?>">
                             </div>
                         </div>
                     </div>
@@ -135,13 +136,33 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Sektor Usaha</label>
-                                <input type="text" class="form-control" id="sektor_usaha" name="sektor_usaha" placeholder="Sektor Usaha" value="<?= $data['sektor_usaha']; ?>" required>
+                                    <select class="form-control" name="sektor_usaha" required>
+                                        <option value="<?= $data['sektor_usaha']; ?>"><?= $data['sektor_usaha']; ?></option>
+                                        <?php
+                                        $no = 1;
+                                        foreach ($data_sektor_usaha as $row) : 
+                                        ?>
+                                            <option value="<?= $row->nama_sektor; ?>"><?= $row->nama_sektor; ?></option>
+                                        <?php
+                                        endforeach;
+                                        ?>
+                                    </select>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Sub Sektor Usaha</label>
-                                <input type="text" class="form-control" id="sub_sektor_usaha" name="sub_sektor_usaha" placeholder="Sub Sektor Usaha" value="<?= $data['sub_sektor_usaha']; ?>" required>
+                                    <select class="form-control" name="sub_sektor_usaha" required>
+                                        <option value="<?= $data['sub_sektor_usaha']; ?>"><?= $data['sub_sektor_usaha']; ?></option>
+                                        <?php
+                                        $no = 1;
+                                        foreach ($data_sub_sektor_usaha as $row) : 
+                                        ?>
+                                            <option value="<?= $row->nama_sub; ?>"><?= $row->nama_sub; ?></option>
+                                        <?php
+                                        endforeach;
+                                        ?>
+                                    </select>
                             </div>
                         </div>
                     </div>
@@ -177,31 +198,42 @@
                             </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Komoditas</label>
-                                <input type="text" class="form-control" id="komoditas" name="komoditas" placeholder="Komoditas" value="<?= $data['komoditas']; ?>" required>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Komoditas</label>
+                                        <select class="form-control" name="komoditas" required>
+                                            <option value="<?= $data['komoditas']; ?>"><?= $data['komoditas']; ?></option>
+                                            <?php
+                                            $no = 1;
+                                            foreach ($data_komoditas as $row) : 
+                                            ?>
+                                                <option value="<?= $row->komoditas; ?>"><?= $row->komoditas; ?></option>
+                                            <?php
+                                            endforeach;
+                                            ?>
+                                        </select>
+                                </div>
                             </div>
-                        </div>
+                      
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Jumlah Karyawan</label>
-                                <input type="text" class="form-control" id="lokasi_simpan" name="lokasi_simpan" placeholder="Lokasi Simpan" value="<?= $data['jml_karyawan']; ?>" required>
+                                <input type="number" class="form-control" id="lokasi_simpan" name="lokasi_simpan" placeholder="Lokasi Simpan" value="<?= $data['jml_karyawan']; ?>">
                             </div>
                         </div>
                     </div>
-
+ 
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Kapasitas Produksi</label>
-                                <input type="text" class="form-control" id="kapasitas_produksi" name="kapasitas_produksi" placeholder="Kapasitas Produksi" value="<?= $data['kapasitas_produksi']; ?>" required>
+                                <input type="number" class="form-control" id="kapasitas_produksi" name="kapasitas_produksi" placeholder="Kapasitas Produksi" value="<?= $data['kapasitas_produksi']; ?>">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Periode Produksi</label>
-                                <input type="text" class="form-control" id="periode_produksi" name="periode_produksi" placeholder="Periode Produksi" value="<?= $data['periode_produksi']; ?>" required>
+                                <input type="text" class="form-control" id="periode_produksi" name="periode_produksi" placeholder="Periode Produksi" value="<?= $data['periode_produksi']; ?>" >
                             </div>
                         </div>
                     </div>
@@ -210,13 +242,17 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Metode Pemasaran</label>
-                                <input type="text" class="form-control" id="metode_pemasaran" name="metode_pemasaran" placeholder="Metode Pemasaran" value="<?= $data['metode_pemasaran']; ?>" required>
+                                    <select class="form-control" name="metode_pemasaran" required>
+                                        <option value="<?= $data['metode_pemasaran']; ?>"><?= $data['metode_pemasaran']; ?></option>
+                                        <option value="Online">Online</option>
+                                        <option value="Offline">Offline</option>
+                                    </select>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Luas Lahan</label>
-                                <input type="text" class="form-control" id="luas_lahan" name="luas_lahan" placeholder="Luas Lahan" value="<?= $data['luas_lahan']; ?>" required>
+                                <input type="text" class="form-control" id="luas_lahan" name="luas_lahan" placeholder="Luas Lahan" value="<?= $data['luas_lahan']; ?>" >
                             </div>
                         </div>
                     </div>
@@ -226,13 +262,20 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Skala Pemasaran</label>
-                                <input type="text" class="form-control" id="skala_pasar" name="skala_pasar" placeholder="Skala Pemasaran" value="<?= $data['skala_pasar']; ?>" required>
+                                    <select class="form-control" name="skala_pasar" required>
+                                        <option value="<?= $data['skala_pasar']; ?>"><?= $data['skala_pasar']; ?></option>
+                                        <option value="Kecamatan">Kecamatan</option>
+                                        <option value="Kabupaten">Kabupaten</option>
+                                        <option value="Provinsi">Provinsi</option>
+                                        <option value="Nasional">Nasional</option>
+                                        <option value="Internasional">Internasional</option>
+                                    </select>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Periode Tanam</label>
-                                <input type="text" class="form-control" id="periode_tanam" name="periode_tanam" placeholder="Periode Tanam" value="<?= $data['periode_tanam']; ?>" required>
+                                <input type="text" class="form-control" id="periode_tanam" name="periode_tanam" placeholder="Periode Tanam" value="<?= $data['periode_tanam']; ?>">
                             </div>
                         </div>
                     </div>
@@ -248,7 +291,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<?= $data['email']; ?>" required>
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<?= $data['email']; ?>">
                             </div>
                         </div>
                     </div>
@@ -258,13 +301,23 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Website</label>
-                                <input type="text" class="form-control" id="website" name="website" placeholder="Website" value="<?= $data['website']; ?>" required>
+                                <input type="text" class="form-control" id="website" name="website" placeholder="Website" value="<?= $data['website']; ?>">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Sumber Modal</label>
-                                <input type="text" class="form-control" id="sumber_modal" name="sumber_modal" placeholder="Sumber Modal" value="<?= $data['sumber_modal']; ?>" required>
+                                    <select class="form-control" name="sumber_modal" required>
+                                        <option value="<?= $data['sumber_modal']; ?>"><?= $data['sumber_modal']; ?></option>
+                                        <?php
+                                        $no = 1;
+                                        foreach ($data_sumber_modal as $row) : 
+                                        ?>
+                                            <option value="<?= $row->keterangan; ?>"><?= $row->keterangan; ?></option>
+                                        <?php
+                                        endforeach;
+                                        ?>
+                                    </select>
                             </div>
                         </div>
                     </div>

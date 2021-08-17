@@ -14,7 +14,7 @@
         Mataram City, West Nusa Tenggara 
         <br><br>
           <strong>Telpn:</strong> 0812-3782-130<br>
-          <strong>Email:</strong> support@simdataku.com<br>
+          <strong>Email:</strong> support@simpul.com<br>
         </p>
       </div>
 
@@ -23,9 +23,8 @@
         <ul>
           <li><i class="bx bx-chevron-right"></i> <a href="<?php echo site_url(''); ?>">Beranda</a></li>
           <li><i class="bx bx-chevron-right"></i> <a href="<?php echo site_url('umkm'); ?>">UMKM</a></li>
-          <li><i class="bx bx-chevron-right"></i> <a href="<?php echo site_url('koperasi'); ?>">Koperasi</a></li>
-          <li><i class="bx bx-chevron-right"></i> <a href="<?php echo site_url('produk'); ?>">Produk</a></li>
-          <li><i class="bx bx-chevron-right"></i> <a href="<?php echo site_url('referensi'); ?>">Referensi</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="<?php echo site_url('komoditas'); ?>">Komoditas</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="<?php echo site_url('contact'); ?>">Kontak</a></li>
         </ul>
       </div>
 

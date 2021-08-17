@@ -43,7 +43,7 @@
                             <p class="quote_text">SIMPUL benar-benar mengagumkan. Saya sangat senang bisa bergabung dengan SIMPUL dan menjadi trainer terbaik tahun 2018.</p>
                             <div class="testi-img_block">
                                 <img src="<?php echo base_url().'theme/images/student-1.png'?>" class="img-fluid" alt="#">
-                                <p><span>Heru Hardianto</span>Trainer Terbaik 2018</p>
+                                <p><span>Heru Hardianto</span>Trainer Terbaik 2020</p>
                             </div>
                         </div>
                       

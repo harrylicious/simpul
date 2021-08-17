@@ -30,7 +30,7 @@
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-        Ubah Data Pengguna
+        Tambah Data Pengguna
           <small></small>
         </h1>
       </section>
@@ -57,19 +57,19 @@
                             <h5 class="info-text"></h5>
                         </div>
 
-                        <form action="<?= base_url('admin/user/update_data'.'/'.$data['kode_user']); ?>" method="post">
+                        <form action="<?= base_url('admin/user/save_data'); ?>" method="post">
                             <div class="row">
                                 <div class="col-sm-6 ">
                                     <div class="form-group">
                                         <label>Kode User</label>
-                                        <input type="text" class="form-control" id="kode_user" name="kode_user" placeholder="Kode User" value="<?= $data['kode_user']; ?>" readonly>
+                                        <input type="text" class="form-control" id="kode_user" name="kode_user" placeholder="Kode User">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6 ">
                                     <div class="form-group">
                                         <label>Nama Lengkap </label>
-                                        <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" placeholder="Nama Lengkap" value="<?= $data['nama_lengkap']; ?>" required>
+                                        <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" placeholder="Nama Lengkap" required>
                                     </div>
                                 </div>
                             </div>
@@ -78,14 +78,14 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Alamat</label>
-                                        <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" value="<?= $data['alamat']; ?>" required>
+                                        <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" required>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Desa</label>
-                                        <input type="text" class="form-control" id="desa" name="desa" placeholder="Desa" value="<?= $data['desa']; ?>" required>
+                                        <input type="text" class="form-control" id="desa" name="desa" placeholder="Desa"required>
                                     </div>
                                 </div>
 
@@ -96,13 +96,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Kecamatan</label>
-                                        <input type="text" class="form-control" id="kecamatan" name="kecamatan" placeholder="Kecamatan" value="<?= $data['kecamatan']; ?>" required>
+                                        <input type="text" class="form-control" id="kecamatan" name="kecamatan" placeholder="Kecamatan" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Kabupaten</label>
-                                        <input type="text" class="form-control" id="kabupaten" name="kabupaten" placeholder="Kabupaten" value="<?= $data['kabupaten']; ?>">
+                                        <input type="text" class="form-control" id="kabupaten" name="kabupaten" placeholder="Kabupaten">
                                     </div>
                                 </div>
 
@@ -113,14 +113,14 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Telpon</label>
-                                        <input type="text" class="form-control" id="telpon" name="telpon" placeholder="Telpon" value="<?= $data['telp']; ?>">
+                                        <input type="text" class="form-control" id="telpon" name="telpon" placeholder="Telpon">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<?= $data['email']; ?>">
+                                        <input type="text" class="form-control" id="email" name="email" placeholder="Email">
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@
                                     <div class="form-group">
                                         <label>Level</label>
                                             <select class="form-control" name="level" required>
-                                                <option value="<?= $data['level']; ?>"><?= $data['level']; ?></option>
+                                                <option value="">- PILIH -</option>
                                                 <option value="admin">Admin</option>
                                                 <option value="relawan">Relawan</option>
                                             </select>
@@ -143,7 +143,7 @@
                                     <div class="form-group">
                                         <label>Lingkup</label>
                                             <select class="form-control" name="lingkup" required>
-                                                <option value="<?= $data['lingkup']; ?>"><?= $data['lingkup']; ?></option>
+                                                <option value="">- PILIH -</option>
                                                 <option value="Provinsi">Provinsi</option>
                                                 <option value="Kabupaten">Kabupaten</option>
                                                 <option value="Kecamatan">Kecamatan</option>
@@ -160,14 +160,14 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Username</label>
-                                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="<?= $data['username']; ?>" required>
+                                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="text" class="form-control" id="password" name="password" placeholder="Password" value="<?= $data['password']; ?>" required>
+                                        <input type="text" class="form-control" id="password" name="password" placeholder="Password" required>
                                     </div>
                                 </div>
                             </div>

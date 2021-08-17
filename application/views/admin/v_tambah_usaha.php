@@ -118,14 +118,14 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>No. Izin</label>
-                                <input type="text" class="form-control" id="no_izin" name="no_izin" placeholder="No. Izin"  required>
+                                <input type="text" class="form-control" id="no_izin" name="no_izin" placeholder="No. Izin" >
                             </div>
                         </div>
 
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Nama Pimpinan</label>
-                                <input type="text" class="form-control" id="nama_pimpinan" name="nama_pimpinan" placeholder="Nama Pimpinan"  required>
+                                <input type="text" class="form-control" id="nama_pimpinan" name="nama_pimpinan" placeholder="Nama Pimpinan" >
                             </div>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>NIK Pimpinan</label>
-                                <input type="text" class="form-control" id="nik" name="nik" placeholder="NIK" required>
+                                <input type="text" class="form-control" id="nik" name="nik" placeholder="NIK">
                             </div>
                         </div>
                     </div>
@@ -143,13 +143,33 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Sektor Usaha</label>
-                                <input type="text" class="form-control" id="sektor_usaha" name="sektor_usaha" placeholder="Sektor Usaha"  required>
+                                    <select class="form-control" name="sektor_usaha" required>
+                                        <option value="">- PILIH -</option>
+                                        <?php
+                                        $no = 1;
+                                        foreach ($data_sektor_usaha as $row) : 
+                                        ?>
+                                            <option value="<?= $row->nama_sektor; ?>"><?= $row->nama_sektor; ?></option>
+                                        <?php
+                                        endforeach;
+                                        ?>
+                                    </select>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Sub Sektor Usaha</label>
-                                <input type="text" class="form-control" id="sub_sektor_usaha" name="sub_sektor_usaha" placeholder="Sub Sektor Usaha"  required>
+                                    <select class="form-control" name="sub_sektor_usaha" required>
+                                        <option value="">- PILIH -</option>
+                                        <?php
+                                        $no = 1;
+                                        foreach ($data_sub_sektor_usaha as $row) : 
+                                        ?>
+                                            <option value="<?= $row->nama_sub; ?>"><?= $row->nama_sub; ?></option>
+                                        <?php
+                                        endforeach;
+                                        ?>
+                                    </select>
                             </div>
                         </div>
                     </div>
@@ -185,16 +205,27 @@
                             </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Komoditas</label>
-                                <input type="text" class="form-control" id="komoditas" name="komoditas" placeholder="Komoditas"  required>
+                        
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Komoditas</label>
+                                        <select class="form-control" name="komoditas" required>
+                                            <option value="">- PILIH -</option>
+                                            <?php
+                                            $no = 1;
+                                            foreach ($data_komoditas as $row) : 
+                                            ?>
+                                                <option value="<?= $row->komoditas; ?>"><?= $row->komoditas; ?></option>
+                                            <?php
+                                            endforeach;
+                                            ?>
+                                        </select>
+                                </div>
                             </div>
-                        </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Jumlah Karyawan</label>
-                                <input type="text" class="form-control" id="jml_karyawan" name="jml_karyawan" placeholder="Jumlah Karyawan"  required>
+                                <input type="text" class="form-control" id="jml_karyawan" name="jml_karyawan" placeholder="Jumlah Karyawan" >
                             </div>
                         </div>
                     </div>
@@ -203,28 +234,62 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Kapasitas Produksi</label>
-                                <input type="text" class="form-control" id="kapasitas_produksi" name="kapasitas_produksi" placeholder="Kapasitas Produksi"  required>
+                                <input type="text" class="form-control" id="kapasitas_produksi" name="kapasitas_produksi" placeholder="Kapasitas Produksi" >
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Periode Produksi</label>
-                                <input type="text" class="form-control" id="periode_produksi" name="periode_produksi" placeholder="Periode Produksi" required>
+                                <input type="text" class="form-control" id="periode_produksi" name="periode_produksi" placeholder="Periode Produksi">
                             </div>
                         </div>
                     </div>
+                    
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Status Kepemilikan Usaha</label>
+                                    <select class="form-control" name="status_kepemilikan">
+                                        <option value="">- PILIH -</option>
+                                        <option value="Pribadi">Pribadi</option>
+                                        <option value="Kelompok">Kelompok</option>
+                                        <option value="Pengelola">Pengelola</option>
+                                        <option value="Lainnya">Lainnya</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Status Kepemilikan Tempat</label>
+                                    <select class="form-control" name="status_kepemilikan_tempat">
+                                        <option value="">- PILIH -</option>
+                                        <option value="Pribadi">Pribadi</option>
+                                        <option value="Kelompok">Kelompok</option>
+                                        <option value="Pengelola">Pengelola</option>
+                                        <option value="Lainnya">Lainnya</option>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                    
                     
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Metode Pemasaran</label>
-                                <input type="text" class="form-control" id="metode_pemasaran" name="metode_pemasaran" placeholder="Metode Pemasaran" required>
+                                    <select class="form-control" name="metode_pemasaran" required>
+                                        <option value="<?= $data['metode_pemasaran']; ?>"><?= $data['metode_pemasaran']; ?></option>
+                                        <option value="Online">Online</option>
+                                        <option value="Offline">Offline</option>
+                                    </select>
                             </div>
                         </div>
+
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Luas Lahan</label>
-                                <input type="text" class="form-control" id="luas_lahan" name="luas_lahan" placeholder="Luas Lahan" required>
+                                <input type="text" class="form-control" id="luas_lahan" name="luas_lahan" placeholder="Luas Lahan">
                             </div>
                         </div>
                     </div>
@@ -234,13 +299,20 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Skala Pemasaran</label>
-                                <input type="text" class="form-control" id="skala_pasar" name="skala_pasar" placeholder="Skala Pemasaran" required>
+                                    <select class="form-control" name="skala_pasar" required>
+                                        <option value="<?= $data['skala_pasar']; ?>"><?= $data['skala_pasar']; ?></option>
+                                        <option value="Kecamatan">Kecamatan</option>
+                                        <option value="Kabupaten">Kabupaten</option>
+                                        <option value="Provinsi">Provinsi</option>
+                                        <option value="Nasional">Nasional</option>
+                                        <option value="Internasional">Internasional</option>
+                                    </select>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Periode Tanam</label>
-                                <input type="text" class="form-control" id="periode_tanam" name="periode_tanam" placeholder="Periode Tanam"  required>
+                                <input type="text" class="form-control" id="periode_tanam" name="periode_tanam" placeholder="Periode Tanam" >
                             </div>
                         </div>
                     </div>
@@ -256,7 +328,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Email">
                             </div>
                         </div>
                     </div>
@@ -266,13 +338,23 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Website</label>
-                                <input type="text" class="form-control" id="website" name="website" placeholder="Website" required>
+                                <input type="text" class="form-control" id="website" name="website" placeholder="Website">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Sumber Modal</label>
-                                <input type="text" class="form-control" id="sumber_modal" name="sumber_modal" placeholder="Sumber Modal" required>
+                                    <select class="form-control" name="sumber_modal" required>
+                                        <option value="">- PILIH -</option>
+                                        <?php
+                                        $no = 1;
+                                        foreach ($data_sumber_modal as $row) : 
+                                        ?>
+                                            <option value="<?= $row->keterangan; ?>"><?= $row->keterangan; ?></option>
+                                        <?php
+                                        endforeach;
+                                        ?>
+                                    </select>
                             </div>
                         </div>
                     </div>

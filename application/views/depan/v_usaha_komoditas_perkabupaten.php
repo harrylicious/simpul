@@ -17,29 +17,12 @@
   <?php include_once "parsial/summary_doc.php"; ?>
 
 
-  <div class="row mb-4">
-    <div class="col-md-12">
-      <div class="card ">
-        <div class="card-header ">
-          <h5 class="card-title"> RANGKUMAN KOMODITAS <strong><?= urldecode(strtoupper($komoditas)); ?></strong></h5>
-        </div>
-        <div class="card-body">
-        
-        Total Luas Lahan:  <strong><a href="#"><?= number_format($data_rangkuman_komoditas['total']); ?></a></strong> are di <strong>Provinsi Nusa Tenggara Barat</strong> <br>
-        Total Kapasitas:  <strong><a href="#"><?= number_format($data_rangkuman_produksi['total']); ?></a></strong> di <strong>Provinsi Nusa Tenggara Barat</strong> <br>
-
-         
-        </div>
-
-      </div>
-    </div>
-  </div>
 
   <div class="row mt-4 mb-4">
     <div class="col-md-12">
       <div class="card ">
         <div class="card-header ">
-          <h5 class="card-title"> DAFTAR USAHA KOMODITAS <strong><?= urldecode(strtoupper($komoditas)); ?></strong></h5>
+          <h5 class="card-title"> DAFTAR USAHA KOMODITAS <strong><?= urldecode(strtoupper($ket_komoditas)); ?></strong> PERKABUPATEN</h5>
         </div>
         <div class="card-body ">
 
@@ -49,6 +32,7 @@
                 <tr>
                   <th width="20px">No.</th>
                   <th>Kabupaten/Kota</th>
+                  <th>Jml. Usaha</th>
                   <th>Total</th>
                   <th width="30px">Aksi</th>
                 </tr>
@@ -62,8 +46,9 @@
                   <tr>
                     <td><?= $no++; ?></td>
                     <td><?= $row->kabupaten; ?></td>
+                    <td><?= $row->jml_usaha; ?></td>
                     <td><?= number_format($row->total); ?> are</td>
-                    <td><a href="<?= base_url('komoditas/get_perkomoditas/') . $row->kabupaten; ?>" class="btn btn-danger">Lihat Daftar</a></td>
+                    <td><a href="<?= base_url('komoditas/get_daftar_komoditas_perkabupaten/') . $row->kabupaten . "/" . $ket_komoditas; ?>" class="btn btn-danger">Lihat Daftar</a></td>
                   </tr>
 
                 <?php

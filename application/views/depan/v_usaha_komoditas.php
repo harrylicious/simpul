@@ -21,12 +21,12 @@
     <div class="col-md-12">
       <div class="card ">
         <div class="card-header ">
-          <h5 class="card-title"> RANGKUMAN KOMODITAS <strong><?= urldecode(strtoupper($komoditas)); ?></strong> SE-NTB</h5>
+          <h5 class="card-title"> RANGKUMAN KOMODITAS <strong><?= urldecode(strtoupper($ket_komoditas)); ?></strong> SE-NTB</h5>
         </div>
         <div class="card-body">
         
-        Total Luas Lahan:  <strong><a href="<?= base_url('komoditas/get_perkomoditas_perkabupaten/'.$komoditas); ?>"><?= number_format($data_rangkuman_komoditas['total']); ?></a></strong> are di <strong>Provinsi Nusa Tenggara Barat</strong> <br>
-        Total Kapasitas:  <strong><a href="#"><?= number_format($data_rangkuman_produksi['total']); ?></a></strong> di <strong>Provinsi Nusa Tenggara Barat</strong> <br>
+        Total Luas Lahan:  <strong><a href="<?= base_url('komoditas/get_perkomoditas_perkabupaten/'.$ket_komoditas); ?>"><?= number_format($data_rangkuman_komoditas['total']); ?></a></strong> are dan <strong> </strong>
+        Total Kapasitas:  <strong><a href="#"><?= number_format($data_rangkuman_produksi['total']); ?></a></strong> untuk Komoditas <strong><?= urldecode($ket_komoditas); ?></strong> di <strong>Provinsi Nusa Tenggara Barat </strong> <br> <a href="" class="btn btn-danger">Lihat Daftar Sebaran</a> <br>
 
          
         </div>
@@ -39,7 +39,7 @@
     <div class="col-md-12">
       <div class="card ">
         <div class="card-header ">
-          <h5 class="card-title"> DAFTAR SEMUA KOMODITAS <strong><?= urldecode(strtoupper($komoditas)); ?></strong></h5>
+          <h5 class="card-title"> DAFTAR KOMODITAS <strong><?= urldecode(strtoupper($ket_komoditas)); ?></strong></h5>
         </div>
         <div class="card-body ">
 

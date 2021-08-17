@@ -31,7 +31,7 @@ tfoot input {
             <!-- Content Header (Page header) -->
         <section class="content-header">
         <h1>
-            Daftar Usaha <strong><?= urldecode($wilayah); ?></strong> <br>
+            Daftar Usaha Komoditas <strong><?= urldecode($komoditas); ?></strong> <br>
             <small></small>
         </h1>
         </section>
@@ -51,7 +51,7 @@ tfoot input {
             <!-- /.box-header -->
             <div class="box-body">
        
-              <table id="dtHorizontalExample" class="table table-striped table-bordered table-sm "> 
+            <table id="dtHorizontalExample" class="table table-striped table-bordered table-sm "> 
                   <thead>
                       <tr>
                             <th>ID</th>
@@ -107,9 +107,13 @@ tfoot input {
                         <td><?= $row->telpon; ?></td>
                         <td><?= $row->website; ?></td>
                         <td>
+                             <?php if ($_SESSION['level'] != "relawan") { ?>
                               <a href="<?= base_url('admin/usaha/edit/').$row->id; ?>" class="btn btn-warning">Edit</a>
                               <a href="<?= base_url('admin/usaha/delete_data/').$row->id; ?>" class="btn btn-danger">Hapus</a> 
 
+                            <?php
+                              }
+                             ?>
 
                           </td>
                       </tr>
@@ -184,7 +188,7 @@ tfoot input {
                 } 
                 today = dd+'-'+mm+'-'+yyyy;
 
-                return 'Daftar_Usaha'+ '_' + today;
+                return 'Daftar_Usaha_'+' <?= urldecode($komoditas); ?>' + '_' + today;
               },
             },
             {
@@ -210,7 +214,7 @@ tfoot input {
                 } 
                 today = dd+'-'+mm+'-'+yyyy;
 
-                return 'Daftar_Usaha'+'_' + today;
+                return 'Daftar_Usaha_'+' <?= urldecode($komoditas); ?>' + '_' + today;
               },
             },
             'colvis'

@@ -60,7 +60,7 @@ class Dashboard extends CI_Controller{
 
 	function get_data_wilayah($wilayah){
 		$kode_uk_up=$this->session->userdata('kode_uk_up');
-		$wilayah = $this->session->userdata('wilayah');
+		//$wilayah = $this->session->userdata('wilayah');
 		$nama = $this->session->userdata('nama_lengkap'); 
 		if($this->session->userdata('akses')=='1'){
 			$x['visitor'] = $this->m_pengunjung->statistik_pengujung();
@@ -68,7 +68,7 @@ class Dashboard extends CI_Controller{
 			$x['total']=$this->m_usaha->get_total()->row_array();   
 			$x['total_semua']=$this->m_usaha->get_total()->row_array();  
  
-			$x['ntb'] = $this->m_usaha->get_total()->row_array();
+			$x['ntb'] = $this->m_usaha->get_total()->row_array(); 
 			$x['lotim'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Lombok Timur")->row_array();
 			$x['loteng'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Lombok Tengah")->row_array();
 			$x['lobar'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Lombok Barat")->row_array();
@@ -80,13 +80,10 @@ class Dashboard extends CI_Controller{
 			$x['mataram'] = $this->m_usaha->get_all_perkabupaten("Kota Mataram")->row_array();
 			$x['dompu'] = $this->m_usaha->get_all_perkabupaten("Kabupaten Dompu")->row_array();
 			
-			$x['musnah'] = $this->m_usaha->get_data_perkomoditas("Musnah", $wilayah);  
-			$x['berkas_perorangan'] = $this->m_usaha->get_data_perkomoditas("Berkas Perorangan", $wilayah); 
-			$x['dinilai_kembali'] = $this->m_usaha->get_data_perkomoditas("Dinilai Kembali", $wilayah); 
-			$x['permanen'] = $this->m_usaha->get_data_perkomoditas("Permanen", $wilayah); 
 
+			$x['wilayah'] = $wilayah; 
 			
-			$x['data'] = $this->m_usaha->get_all_data_usaha_perkabupaten($wilayah);  
+			$x['data'] = $this->m_usaha->get_all_data_usaha_perkabupaten($wilayah)->result();  
 
 			
 			//$x['last_update'] = $this->db->select('created_at')->order_by('id_usaha', 'desc')->get_where('usahas', ['deleted_at' => '0000-00-00 00:00:00'])->row();
@@ -121,14 +118,13 @@ class Dashboard extends CI_Controller{
 
 
 			
-			
-			$x['data'] = $this->m_usaha->get_data_perkomoditas($komoditas);  
+			$x['data'] = $this->m_usaha->get_data_perkomoditas($komoditas);   
 			$x['komoditas'] = $komoditas;
 
 			
 			//$x['last_update'] = $this->db->select('created_at')->order_by('id_usaha', 'desc')->get_where('usahas', ['deleted_at' => '0000-00-00 00:00:00'])->row();
 
-			$this->load->view('admin/v_usaha',$x);
+			$this->load->view('admin/v_usaha_perkomoditas',$x); 
 		}else{
 			redirect('administrator');
 		}
